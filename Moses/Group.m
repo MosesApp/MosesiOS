@@ -47,16 +47,12 @@ static NSMutableArray *sharedUserGroups = nil;
     sharedUserGroups = nil;
 }
 
-+ (NSArray*) getUserGroupRelationWithUserId:(long long int)userId
++ (void)getUserGroupRelationWithUserId:(long long int)userId
 {
     
-    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroup]];
+    sharedUserGroups = [[NSMutableArray alloc] init];
     
-    // Build a list of groups associated to the user
-    @synchronized(self) {
-        if (sharedUserGroups == nil)
-            sharedUserGroups = [[NSMutableArray alloc] init];
-    }
+    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroup]];
     
     for (NSDictionary *serviceKey in groupJSON) {
         if([serviceKey isEqual:@"results"]){
@@ -71,7 +67,6 @@ static NSMutableArray *sharedUserGroups = nil;
             }
         }
     }
-    return [self sharedUserGroups];
 }
 
 - (NSString *)description

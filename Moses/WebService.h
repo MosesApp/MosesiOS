@@ -10,10 +10,8 @@
 
 @interface WebService : NSObject
 
-
 + (NSDictionary*)getDataWithParam:(NSString *)param
                        serviceURL:(NSString*)serviceURL;
-
 
 + (NSDictionary*)setDataWithJSONDict:(NSDictionary*)dict
                           serviceURL:(NSString*)serviceURL;

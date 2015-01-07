@@ -14,13 +14,13 @@
 
 @property (nonatomic) long long int dbId;
 @property (nonatomic) long long int groupId;
-@property (nonatomic, weak) NSString* receiptImageURL;
-@property (nonatomic, weak) UIImage* receiptImage;
-@property (nonatomic, weak) NSString* type;
-@property (nonatomic, weak) User* user;
+@property (nonatomic, copy) NSString* receiptImageURL;
+@property (nonatomic, copy) UIImage* receiptImage;
+@property (nonatomic, copy) NSString* type;
+@property (nonatomic, copy) User* user;
 @property (nonatomic) long long int amount;
-@property (nonatomic, weak) NSDate* deadline;
-@property (nonatomic, weak) NSString* status;
+@property (nonatomic, copy) NSDate* deadline;
+@property (nonatomic, copy) NSString* status;
 
 
 - (id)initWithdbId:(long long int)dbId
@@ -32,13 +32,13 @@
           deadline:(NSDate*)deadline
             status:(NSString*)status;
 
-+ (NSArray*) sharedBills;
++ (NSArray*)sharedBills;
 
-+ (void) clearSharedBills;
++ (void)clearSharedBills;
 
-+ (NSArray*) getBillsToReceive:(long long int)userId;
++ (void)getBillsToReceive:(long long int)userId;
 
-+ (NSArray*) getBillsToPay:(long long int)userId;
++ (void)getBillsToPay:(long long int)userId;
 
 + (NSMutableDictionary*)getFinancialSituation;
 

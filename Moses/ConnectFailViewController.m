@@ -39,7 +39,6 @@
     
     [self.view addSubview:label_1];
     
-    
     UILabel *label_2 = [[UILabel alloc] init];
     label_2.font = [UIFont fontWithName:@"TrebuchetMS" size:18];
     label_2.text= @"Try again later!";

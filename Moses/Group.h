@@ -25,11 +25,11 @@
           imageURL:(NSString*)imageURL
             status:(NSString*)status;
 
-+ (NSArray*)getUserGroupRelationWithUserId:(long long int)userId;
-
-+ (NSArray*)sharedUserGroups;
++ (NSMutableArray*)sharedUserGroups;
 
 + (void)clearSharedUserGroups;
+
++ (void)getUserGroupRelationWithUserId:(long long int)userId;
 
 - (NSString *)description;
 

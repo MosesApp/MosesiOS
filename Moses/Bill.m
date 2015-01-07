@@ -52,9 +52,8 @@ static NSMutableArray *sharedBills = nil;
     sharedBills = nil;
 }
 
-+ (NSArray*)getBillsToReceive:(long long int)userId
++ (void)getBillsToReceive:(long long int)userId
 {
-    NSLog(@"%@", sharedBills);
     if(sharedBills == nil){
         sharedBills = [[NSMutableArray alloc] init];
     }
@@ -83,13 +82,10 @@ static NSMutableArray *sharedBills = nil;
             }
         }
     }
-    
-    return [self sharedBills];
 }
 
-+ (NSArray*)getBillsToPay:(long long int)userId
++ (void)getBillsToPay:(long long int)userId
 {
-    NSLog(@"%@", sharedBills);
     if(sharedBills == nil){
         sharedBills = [[NSMutableArray alloc] init];
     }
@@ -119,8 +115,6 @@ static NSMutableArray *sharedBills = nil;
             }
         }
     }
-    
-    return [self sharedBills];
 }
 
 + (NSMutableDictionary*)getFinancialSituation

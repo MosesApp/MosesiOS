@@ -74,19 +74,18 @@
 
 // Logged-out user experience
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
-
+    
     [User clearSharedUser];
     [Group clearSharedUserGroups];
     [Bill clearSharedBills];
     
     UIViewController *loginController = [self.storyboard instantiateViewControllerWithIdentifier:@"FBLoginViewController"];
-    [self presentViewController:loginController animated:YES completion:nil];
     
-    //AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[appDelegate resetWindowToInitialView];
-    
+    self.view.window.rootViewController = loginController;
+
 }
 
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
-
+- (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
+}
 @end

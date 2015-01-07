@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "FBLoginViewController.h"
 
 @interface AppDelegate ()
 

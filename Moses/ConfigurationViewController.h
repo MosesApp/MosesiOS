@@ -11,6 +11,6 @@
 
 @interface ConfigurationViewController : UIViewController <FBLoginViewDelegate>
 
-@property (strong, nonatomic) FBLoginView *loginFacebookButtonView;
+@property (nonatomic, strong) FBLoginView *loginFacebookButtonView;
 
 @end

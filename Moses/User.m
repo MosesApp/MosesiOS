@@ -14,7 +14,6 @@
 
 static User *sharedUser = nil;
 
-#pragma mark Singleton Methods
 + (instancetype)sharedUserWithFacebookId:(NSString *)facebookId
                                firstName:(NSString *)firstName
                                 fullName:(NSString *)fullName
@@ -31,8 +30,6 @@ static User *sharedUser = nil;
                                                           locale:locale
                                                         timezone:timezone];
     }
-    
-    NSLog(@"%@", sharedUser);
     return sharedUser;
 }
 
@@ -81,13 +78,27 @@ static User *sharedUser = nil;
     user.email = json[@"email"];
     user.facebookId = json[@"facebook_id"];
     user.locale = json[@"locale"];
-    user.timezone = (int) json[@"timezone"];
+    user.timezone = (int) [json[@"timezone"] integerValue];
     return user;
 }
 
 - (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId
 {
     return [WebService getDataWithParam:facebookId serviceURL:[Settings getWebServiceUser]];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    User *user = [[[self class] allocWithZone:zone] init];
+    if(user) {
+        [user setDbId:[self dbId]];
+        [user setFirstName:[self firstName]];
+        [user setFullName:[self fullName]];
+        [user setEmail:[self email]];
+        [user setFacebookId:[self facebookId]];
+        [user setLocale:[self locale]];
+        [user setTimezone:[self timezone]];
+    }
+    return user;
 }
 
 - (NSString *)description
@@ -103,6 +114,13 @@ static User *sharedUser = nil;
             self.timezone];
 }
 
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
+- (void)dealloc {
+    _firstName = nil;
+    _fullName = nil;
+    _email = nil;
+    _facebookId = nil;
+    _locale = nil;
+    _timezone = 0;
+    NSLog(@"dealloc - %@",[self class]); }
 
 @end

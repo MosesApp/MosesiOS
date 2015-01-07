@@ -12,9 +12,9 @@
 @interface FBLoginViewController : UIViewController <UIPageViewControllerDataSource, FBLoginViewDelegate>
 
 @property (nonatomic, weak) UIPageViewController *pageViewController;
-@property (strong, nonatomic) FBLoginView *loginFacebookButtonView;
-@property (strong, nonatomic) NSArray *pageImages;
+@property (nonatomic, strong) FBLoginView *loginFacebookButtonView;
+@property (nonatomic, strong) NSArray *pageImages;
 
-@property (nonatomic, weak) id<FBGraphUser> cachedUser;
+@property (nonatomic, strong) id<FBGraphUser> cachedUser;
 
 @end

@@ -11,11 +11,11 @@
 @interface User : NSObject
 
 @property (nonatomic) long long int dbId;
-@property (nonatomic, weak) NSString* firstName;
-@property (nonatomic, weak) NSString* fullName;
-@property (nonatomic, weak) NSString* email;
-@property (nonatomic, weak) NSString* facebookId;
-@property (nonatomic, weak) NSString *locale;
+@property (nonatomic, copy) NSString* firstName;
+@property (nonatomic, copy) NSString* fullName;
+@property (nonatomic, copy) NSString* email;
+@property (nonatomic, copy) NSString* facebookId;
+@property (nonatomic, copy) NSString *locale;
 @property (nonatomic) int timezone;
 
 
@@ -40,7 +40,7 @@
                            timezone:(int)timezone;
 
 
-- (NSDictionary*) getUserWithFacebookId:(NSString *)facebookId;
+- (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId;
 
 - (NSString *)description;
 

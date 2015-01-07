@@ -60,12 +60,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ueL-tW-h5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3027" y="-479"/>
+            <point key="canvasLocation" x="-3222" y="-485"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="qI7-Tj-I0f">
             <objects>
-                <viewController storyboardIdentifier="FBLoginViewController" id="05X-pR-IVY" customClass="FBLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FBLoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="05X-pR-IVY" customClass="FBLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jKb-Pe-ird"/>
                         <viewControllerLayoutGuide type="bottom" id="LEM-QM-bVw"/>
@@ -78,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-Yh-p9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3735" y="-113"/>
+            <point key="canvasLocation" x="-3930" y="-119"/>
         </scene>
         <!--Connect Fail View Controller-->
         <scene sceneID="DFA-cp-c0R">
@@ -104,7 +104,7 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zq9-3e-0sh" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmj-y8-M4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3027" y="213"/>
+            <point key="canvasLocation" x="-3222" y="207"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="S3K-Ky-KST">

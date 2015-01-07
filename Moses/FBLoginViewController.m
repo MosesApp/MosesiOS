@@ -23,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _cachedUser = nil;
+    
     _loginFacebookButtonView = [[FBLoginView alloc] init];
     
     // Add facebook permissions and delegate
@@ -63,11 +65,6 @@
     
 }
 
-- (BOOL)shouldAutorotate
-{
-    return NO;
-}
-
 #pragma mark - Facebook Controller Data Source
 // This method will be called when the user information has been fetched
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
@@ -91,7 +88,7 @@
                                                     fullName:user.last_name
                                                        email:[user objectForKey:@"email"]
                                                       locale:[user objectForKey:@"locale"]
-                                                    timezone:(int)[user objectForKey:@"timezone"]];
+                                                    timezone:(int)[[user objectForKey:@"timezone"] integerValue]];
         
             // Direct user to the correct view according to server status
             if(mosesUser.dbId){
@@ -104,11 +101,11 @@
                 [Bill getBillsToPay:mosesUser.dbId];
 
                 UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-                [self presentViewController:tabBarController animated:YES completion:nil];
+                self.view.window.rootViewController = tabBarController;
                 
             }else{
                 UIViewController *errorController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectFailController"];
-                [self presentViewController:errorController animated:YES completion:nil];
+                self.view.window.rootViewController = errorController;
             }
 
         });
@@ -167,8 +164,6 @@
     }
 }
 
-
-
 #pragma mark - Page View Controller Data Source
 - (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index
 {
@@ -221,12 +216,12 @@
     return 0;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)dealloc {
+    _pageViewController = nil;
     _loginFacebookButtonView = nil;
     _pageImages = nil;
+    _cachedUser = nil;
+    NSLog(@"dealloc - %@",[self class]);
 }
-
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
 
 @end

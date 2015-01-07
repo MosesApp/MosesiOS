@@ -11,15 +11,25 @@
 @interface Settings : NSObject
 
 + (NSString *)getWebServiceDomain;
+
 + (NSString *)getWebServiceProtocol;
+
 + (NSString *)getWebServiceUsers;
+
 + (NSString *)getWebServiceUser;
+
 + (NSString *)getWebServiceUserGroup;
+
 + (NSString *)getWebServiceBillReceiver;
+
 + (NSString *)getWebServiceBillDebtor;
+
 + (NSString *)getWebServiceAdmin;
+
 + (NSString *)getWebServicePassword;
+
 + (NSString *)AFBase64EncodedStringFromString:(NSString *)string;
+
 + (BOOL)validateUrl: (NSString *)candidate;
 
 @end
