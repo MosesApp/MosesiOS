@@ -31,7 +31,7 @@
     bills  = [Bill sharedBills];
     
     // Show logo at the top of table view
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
+    self.parentViewController.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
     
     // Change navigation bar color
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:255.0/255.0 alpha:1.0f];
@@ -195,6 +195,8 @@
         cell.thumbnailStatusImageView.image = [UIImage imageNamed:@"red.png"];
     }
     
+    cell.nameLabel.frame = CGRectMake(cell.nameLabel.frame.origin.x, cell.nameLabel.frame.origin.y, cell.valueLabel.frame.origin.x - cell.nameLabel.frame.origin.x,cell.nameLabel.frame.origin.y);
+    
     cell.thumbnailStatusImageView.layer.cornerRadius = cell.thumbnailStatusImageView.frame.size.width / 2;
     cell.thumbnailStatusImageView.clipsToBounds = YES;
     
@@ -240,6 +242,10 @@
 - (BOOL)shouldAutorotate
 {
     return NO;
+}
+
+- (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
 }
 
 @end

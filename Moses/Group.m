@@ -80,6 +80,15 @@ static NSMutableArray *sharedUserGroups = nil;
             self.status];
 }
 
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
+- (void)dealloc {
+    
+    _dbId = 0.0;
+    _ownerId = 0.0;
+    _name = nil;
+    _imageURL = nil;
+    _image = nil;
+    _status = nil;
+    NSLog(@"dealloc - %@",[self class]);
+}
 
 @end

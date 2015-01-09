@@ -99,8 +99,12 @@
                 // Get user related bills
                 [Bill getBillsToReceive:mosesUser.dbId];
                 [Bill getBillsToPay:mosesUser.dbId];
-
-                UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+                
+                UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+                
+                [hud hide:YES];
+                [hud removeFromSuperview];
+                
                 self.view.window.rootViewController = tabBarController;
                 
             }else{

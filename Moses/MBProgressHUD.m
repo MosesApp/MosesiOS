@@ -219,6 +219,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 - (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
 	[self unregisterFromNotifications];
 	[self unregisterFromKVO];
 #if !__has_feature(objc_arc)
@@ -798,6 +799,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 - (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
 	[self unregisterFromKVO];
 #if !__has_feature(objc_arc)
 	[_progressTintColor release];
@@ -904,6 +906,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 - (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
 	[self unregisterFromKVO];
 #if !__has_feature(objc_arc)
 	[_lineColor release];

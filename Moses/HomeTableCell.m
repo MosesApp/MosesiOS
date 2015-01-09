@@ -91,4 +91,13 @@
     self.thumbnailStatusImageView = nil;
 }
 
+- (void)dealloc {
+    _nameLabel = nil;
+    _valueLabel = nil;
+    _thumbnailProfileImageView = nil;
+    _thumbnailStatusImageView = nil;
+    
+    NSLog(@"dealloc - %@",[self class]);
+}
+
 @end

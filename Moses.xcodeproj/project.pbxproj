@@ -32,6 +32,7 @@
 		F980DC861A4F57C8009C11C8 /* ConnectFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F980DC851A4F57C8009C11C8 /* ConnectFailViewController.m */; };
 		F98E9A1C1A4A2F0600279FB0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F98E9A1B1A4A2F0600279FB0 /* User.m */; };
 		F98E9A1F1A4A49B800279FB0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = F98E9A1E1A4A49B800279FB0 /* Settings.m */; };
+		F9B4614E1A5F5C690096D4C1 /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */; };
 		F9CE4CB91A48CB5C00D9EB50 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CE4CB81A48CB5C00D9EB50 /* main.m */; };
 		F9CE4CC41A48CB5C00D9EB50 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9CE4CC31A48CB5C00D9EB50 /* Images.xcassets */; };
 		F9CE4CD31A48CB5C00D9EB50 /* MosesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CE4CD21A48CB5C00D9EB50 /* MosesTests.m */; };
@@ -98,6 +99,8 @@
 		F98E9A1B1A4A2F0600279FB0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		F98E9A1D1A4A49B800279FB0 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		F98E9A1E1A4A49B800279FB0 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		F9B4614C1A5F5C690096D4C1 /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
+		F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
 		F9CE4CB31A48CB5C00D9EB50 /* Moses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CE4CB71A48CB5C00D9EB50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9CE4CB81A48CB5C00D9EB50 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				F925079E1A4C9281002927B3 /* HomeTableViewController.m */,
 				F977BBCD1A53ACBF0039A132 /* HomeTableCell.h */,
 				F977BBCE1A53ACBF0039A132 /* HomeTableCell.m */,
+				F9B4614C1A5F5C690096D4C1 /* GroupViewController.h */,
+				F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */,
 				F97B63CC1A5A7A2500707719 /* ConfigurationViewController.h */,
 				F97B63CD1A5A7A2500707719 /* ConfigurationViewController.m */,
 				F93E08911A4E1BC900A6F6F4 /* TabBarController.h */,
@@ -617,6 +622,7 @@
 				F97B63C11A58E7DC00707719 /* MBProgressHUD.m in Sources */,
 				F980DC861A4F57C8009C11C8 /* ConnectFailViewController.m in Sources */,
 				F96F700D1A4F70D600D800C4 /* Group.m in Sources */,
+				F9B4614E1A5F5C690096D4C1 /* GroupViewController.m in Sources */,
 				F9CE4CE91A48CCA200D9EB50 /* FBLoginViewController.m in Sources */,
 				F9CE4CEA1A48CCA200D9EB50 /* PageContentViewController.m in Sources */,
 				F97B63CE1A5A7A2500707719 /* ConfigurationViewController.m in Sources */,

@@ -121,6 +121,8 @@ static User *sharedUser = nil;
     _facebookId = nil;
     _locale = nil;
     _timezone = 0;
-    NSLog(@"dealloc - %@",[self class]); }
+
+    NSLog(@"dealloc - %@",[self class]);
+}
 
 @end

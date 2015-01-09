@@ -170,6 +170,18 @@ static NSMutableArray *sharedBills = nil;
             self.status];
 }
 
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
+- (void)dealloc {
+    
+    _dbId = 0.0;
+    _groupId = 0.0;
+    _receiptImageURL = nil;
+    _receiptImage = nil;
+    _type = nil;
+    _user = nil;
+    _amount = 0.0;
+    _deadline = nil;
+    _status = nil;
+    
+    NSLog(@"dealloc - %@",[self class]); }
 
 @end

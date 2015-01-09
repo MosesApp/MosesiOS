@@ -86,6 +86,8 @@
 }
 
 - (void)dealloc {
+    _loginFacebookButtonView = nil;
+    
     NSLog(@"dealloc - %@",[self class]);
 }
 @end
