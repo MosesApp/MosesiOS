@@ -20,9 +20,7 @@
 
 + (NSString *)getWebServiceUserGroup;
 
-+ (NSString *)getWebServiceBillReceiver;
-
-+ (NSString *)getWebServiceBillDebtor;
++ (NSString *)getWebServiceBill;
 
 + (NSString *)getWebServiceAdmin;
 

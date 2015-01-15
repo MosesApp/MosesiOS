@@ -7,6 +7,7 @@
 //
 
 #import "ConnectFailViewController.h"
+#import "User.h"
 
 @interface ConnectFailViewController ()
 
@@ -27,36 +28,46 @@
     [self.view addSubview:logoView];
     
     // Determine the size/position of the label elements
-    UILabel *label_1 = [[UILabel alloc] init];
-    label_1.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:18];
-    label_1.text= @"Failed to connect to server.";
-    CGSize textSize_1 = [[label_1 text] sizeWithAttributes:@{NSFontAttributeName:[label_1 font]}];
-    CGFloat strikeWidth_1 = textSize_1.width;
-    [label_1 setFrame:CGRectMake((self.view.frame.size.width - strikeWidth_1)/2, self.view.frame.size.height * 0.30, self.view.frame.size.width * 0.80, self.view.frame.size.height * 0.16)];
-    label_1.backgroundColor=[UIColor clearColor];
-    label_1.textColor=[UIColor blackColor];
-    label_1.userInteractionEnabled=YES;
+    UILabel *warningLabel = [[UILabel alloc] init];
+    warningLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:18];
+    warningLabel.text= @"Failed connecting to server.";
+    CGSize warningLabelSize = [[warningLabel text] sizeWithAttributes:@{NSFontAttributeName:[warningLabel font]}];
+    CGFloat warningLabelWidth = warningLabelSize.width;
+    [warningLabel setFrame:CGRectMake((self.view.frame.size.width - warningLabelWidth)/2, self.view.frame.size.height * 0.30, self.view.frame.size.width * 0.80, self.view.frame.size.height * 0.16)];
+    warningLabel.backgroundColor=[UIColor clearColor];
+    warningLabel.textColor=[UIColor blackColor];
+    warningLabel.userInteractionEnabled=YES;
     
-    [self.view addSubview:label_1];
+    [self.view addSubview:warningLabel];
     
-    UILabel *label_2 = [[UILabel alloc] init];
-    label_2.font = [UIFont fontWithName:@"TrebuchetMS" size:18];
-    label_2.text= @"Try again later!";
-    CGSize textSize_2 = [[label_2 text] sizeWithAttributes:@{NSFontAttributeName:[label_2 font]}];
-    CGFloat strikeWidth_2 = textSize_2.width;
-    [label_2 setFrame:CGRectMake((self.view.frame.size.width - strikeWidth_2)/2, self.view.frame.size.height * 0.40, self.view.frame.size.width * 0.80, self.view.frame.size.height * 0.16)];
-    label_2.backgroundColor=[UIColor clearColor];
-    label_2.textColor=[UIColor blackColor];
-    label_2.userInteractionEnabled=YES;
     
-    [self.view addSubview:label_2];
+    // Create the button and assign the image
+    UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *retryButtonImage = [UIImage imageNamed:@"tryagain_button.jpg"];
+    
+    [retryButton setFrame:CGRectMake((self.view.frame.size.width - retryButtonImage.size.width)/2, self.view.frame.size.height * 0.45, retryButtonImage.size.width, retryButtonImage.size.height)];
+    
+    [retryButton setImage:retryButtonImage forState:UIControlStateNormal];
+    [retryButton addTarget:self action:@selector(retryEvent) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:retryButton];
     
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return NO;
+- (void)retryEvent
+{
+    UIViewController *loginController = [self.storyboard instantiateViewControllerWithIdentifier:@"FBLoginViewController"];
+    
+    self.view.window.rootViewController = loginController;
 }
 
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
+}
 
 @end

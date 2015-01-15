@@ -37,20 +37,20 @@
     
     [self.view addSubview:logoView];
     
-    // Text area
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - (self.view.frame.size.width * 0.70))/2, self.view.frame.size.height * 0.40, self.view.frame.size.width * 0.70, self.view.frame.size.height * 0.50)];
-    text.textColor = [UIColor blackColor];
-    text.font = [UIFont fontWithName:@"Arial" size:15];
-    text.text=@"O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.";
-    text.editable = NO;
+    // Details text area
+    UITextView *detailsText = [[UITextView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - (self.view.frame.size.width * 0.70))/2, self.view.frame.size.height * 0.40, self.view.frame.size.width * 0.70, self.view.frame.size.height * 0.50)];
+    detailsText.textColor = [UIColor blackColor];
+    detailsText.font = [UIFont fontWithName:@"Arial" size:15];
+    detailsText.text=@"O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500.";
+    detailsText.editable = NO;
     
-    [self.view addSubview:text];
+    [self.view addSubview:detailsText];
     
     UIImage *linkButtonImage = [UIImage imageNamed:@"website_link.png"];
     
-    //create the button and assign the image
+    // Create the button and assign the image
     UIButton *linkButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    linkButton.frame = CGRectMake((self.view.frame.size.width - (self.view.frame.size.width * 0.50))/2, self.view.frame.size.height * 0.60, self.view.frame.size.width * 0.50, linkButtonImage.size.height * 0.70);
+    linkButton.frame = CGRectMake((self.view.frame.size.width - (self.view.frame.size.width * 0.50))/2, self.view.frame.size.height * 0.65, self.view.frame.size.width * 0.50, linkButtonImage.size.height * 0.70);
     
     [linkButton setImage:linkButtonImage forState:UIControlStateNormal];
     [linkButton addTarget:self action:@selector(openWebsiteLink) forControlEvents:UIControlEventTouchUpInside];
@@ -75,19 +75,18 @@
 // Logged-out user experience
 - (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
     
-    [User clearSharedUser];
-    [Group clearSharedUserGroups];
-    [Bill clearSharedBills];
-    
     UIViewController *loginController = [self.storyboard instantiateViewControllerWithIdentifier:@"FBLoginViewController"];
     
     self.view.window.rootViewController = loginController;
+}
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
     _loginFacebookButtonView = nil;
-    
     NSLog(@"dealloc - %@",[self class]);
 }
 @end

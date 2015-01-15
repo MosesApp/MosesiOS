@@ -23,7 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Clear global and static variables
     _cachedUser = nil;
+    [User clearSharedUser];
+    [Group clearSharedUserGroups];
+    [Bill clearSharedBills];
     
     _loginFacebookButtonView = [[FBLoginView alloc] init];
     
@@ -82,14 +86,15 @@
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            
+
             User *mosesUser = [User sharedUserWithFacebookId:user.objectID
                                                    firstName:user.first_name
                                                     fullName:user.last_name
                                                        email:[user objectForKey:@"email"]
                                                       locale:[user objectForKey:@"locale"]
                                                     timezone:(int)[[user objectForKey:@"timezone"] integerValue]];
-        
+
+            
             // Direct user to the correct view according to server status
             if(mosesUser.dbId){
                 
@@ -97,18 +102,23 @@
                 [Group getUserGroupRelationWithUserId:mosesUser.dbId];
                 
                 // Get user related bills
-                [Bill getBillsToReceive:mosesUser.dbId];
-                [Bill getBillsToPay:mosesUser.dbId];
+                [Bill getUserBills:mosesUser.dbId];
                 
-                UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+                UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
                 
+                // Destroy Loading animation
                 [hud hide:YES];
                 [hud removeFromSuperview];
                 
-                self.view.window.rootViewController = tabBarController;
-                
+                self.view.window.rootViewController = navController;
+                //[self presentViewController:navController animated:YES completion:nil];
             }else{
+                // Destroy Loading animation
+                [hud hide:YES];
+                [hud removeFromSuperview];
+                
                 UIViewController *errorController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectFailController"];
+                
                 self.view.window.rootViewController = errorController;
             }
 
@@ -218,6 +228,11 @@
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     return 0;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {

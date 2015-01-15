@@ -15,17 +15,23 @@
 static NSMutableArray *sharedBills = nil;
 
 - (id)initWithdbId:(long long int)dbId
+            billId:(long long int)billId
+              name:(NSString*)name
+   billDescription:(NSString*)billDescription
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
-              type:(NSString*)type
-              user:(User*)user
-            amount:(long long int)amount
+        billAmount:(long long int)billAmount
           deadline:(NSDate*)deadline
-            status:(NSString*)status{
+          relation:(NSString*)relation
+            status:(NSString*)status
+            amount:(long long int)amount{
     
     self = [super init];
     if (self) {
         self.dbId = dbId;
+        self.billId = billId;
+        self.name = name;
+        self.billDescription = billDescription;
         self.groupId = groupId;
         self.receiptImageURL = receiptImageURL;
         if([Settings validateUrl:self.receiptImageURL]){
@@ -33,11 +39,11 @@ static NSMutableArray *sharedBills = nil;
                           [NSData dataWithContentsOfURL:
                            [NSURL URLWithString: self.receiptImageURL]]];
         }
-        self.type = type;
-        self.user = user;
-        self.amount = amount;
+        self.billAmount = billAmount;
         self.deadline = deadline;
+        self.relation = relation;
         self.status = status;
+        self.amount = amount;
     }
     return self;
 }
@@ -52,66 +58,39 @@ static NSMutableArray *sharedBills = nil;
     sharedBills = nil;
 }
 
-+ (void)getBillsToReceive:(long long int)userId
++ (void)getUserBills:(long long int)userId
 {
     if(sharedBills == nil){
         sharedBills = [[NSMutableArray alloc] init];
     }
     
-    NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceBillReceiver]];
+    NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceBill]];
     
     for (NSDictionary *serviceKey in billJSON) {
         if([serviceKey isEqual:@"results"]){
             for (NSDictionary *billDict in [billJSON objectForKey:serviceKey]) {
+                
+                NSDictionary* billDetail = billDict[@"bill"];
                 // Format date string
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
                 [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-                NSDate *deadline = [df dateFromString: billDict[@"deadline"]];
+                NSDate *deadline = [df dateFromString: billDetail[@"deadline"]];
+                
                 
                 Bill *bill = [[Bill alloc] initWithdbId:[billDict[@"id"] intValue]
-                                                groupId:[billDict[@"group"] intValue]
-                                        receiptImageURL:billDict[@"receipt_image"]
-                                                   type:@"receiver"
-                                                   user:[User castJSONToTypeWith:billDict[@"debtor"]]
-                                                amount:[billDict[@"amount"] intValue]
-                                              deadline:deadline
-                                                status:billDict[@"status"]];
-                
+                                                 billId:[billDetail[@"id"] intValue]
+                                                   name:billDetail[@"name"]
+                                        billDescription:billDetail[@"description"]
+                                                groupId:[billDetail[@"group"] intValue]
+                                        receiptImageURL:billDetail[@"receipt_image"]
+                                             billAmount:[billDetail[@"amount"] intValue]
+                                               deadline:deadline
+                                               relation:billDict[@"relation"]
+                                                 status:billDict[@"status"]
+                                                 amount:[billDict[@"amount"] intValue]];
+
                 [sharedBills addObject:bill];
             
-            }
-        }
-    }
-}
-
-+ (void)getBillsToPay:(long long int)userId
-{
-    if(sharedBills == nil){
-        sharedBills = [[NSMutableArray alloc] init];
-    }
-    
-    NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceBillDebtor]];
-    
-    for (NSDictionary *serviceKey in billJSON) {
-        if([serviceKey isEqual:@"results"]){
-            for (NSDictionary *billDict in [billJSON objectForKey:serviceKey]) {
-                // Format date string
-                NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-                NSDate *deadline = [df dateFromString: billDict[@"deadline"]];
-                
-                
-                Bill *bill = [[Bill alloc] initWithdbId:[billDict[@"id"] intValue]
-                                                groupId:[billDict[@"group"] intValue]
-                                        receiptImageURL:billDict[@"receipt_image"]
-                                                   type:@"debtor"
-                                                   user:[User castJSONToTypeWith:billDict[@"receiver"]]
-                                                 amount:[billDict[@"amount"] intValue]
-                                               deadline:deadline
-                                                 status:billDict[@"status"]];
-                
-                [sharedBills addObject:bill];
-                
             }
         }
     }
@@ -125,10 +104,12 @@ static NSMutableArray *sharedBills = nil;
     float balance = 0.0;
     
     for (Bill* bill in sharedBills) {
-        if([bill.type isEqual:@"debtor"]){
-            owe += bill.amount;
-        }else if([bill.type isEqual:@"receiver"]){
-            owed += bill.amount;
+        if(![bill.status isEqual: @"paid"]){
+            if([bill.relation isEqual:@"debtor"]){
+                owe += bill.amount;
+            }else if([bill.relation isEqual:@"taker"]){
+                owed += bill.amount;
+            }
         }
     }
     balance = owed - owe;
@@ -146,10 +127,12 @@ static NSMutableArray *sharedBills = nil;
     float balance = 0.0;
     for (Bill* bill in sharedBills) {
         if(bill.groupId == groupId){
-            if([bill.type isEqual:@"debtor"]){
-                balance -= bill.amount;
-            }else if([bill.type isEqual:@"receiver"]){
-                balance += bill.amount;
+            if(![bill.status isEqual: @"paid"]){
+                if([bill.relation isEqual:@"debtor"]){
+                    balance -= bill.amount;
+                }else if([bill.relation isEqual:@"taker"]){
+                    balance += bill.amount;
+                }
             }
         }
     }
@@ -159,29 +142,31 @@ static NSMutableArray *sharedBills = nil;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%lld\n%lld\n%@\n%@\n%@\n%lld\n%@\n%@",
+    return [NSString stringWithFormat:@"%lld\n%lld\n%@\n%@\n%lld\n%@\n%lld\n%@\n%@\n%@",
             self.dbId,
+            self.billId,
+            self.name,
+            self.billDescription,
             self.groupId,
             self.receiptImageURL,
-            self.type,
-            self.user,
             self.amount,
             self.deadline,
+            self.relation,
             self.status];
 }
 
 - (void)dealloc {
-    
     _dbId = 0.0;
+    _billId = 0.0;
+    _name = nil;
+    _billDescription = nil;
     _groupId = 0.0;
     _receiptImageURL = nil;
-    _receiptImage = nil;
-    _type = nil;
-    _user = nil;
     _amount = 0.0;
     _deadline = nil;
+    _relation = nil;
     _status = nil;
-    
-    NSLog(@"dealloc - %@",[self class]); }
+    NSLog(@"dealloc - %@",[self class]);
+}
 
 @end

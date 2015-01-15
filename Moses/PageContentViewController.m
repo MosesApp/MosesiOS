@@ -21,11 +21,15 @@
     self.backgroundImageView.image = [UIImage imageNamed:self.imageFile];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)dealloc {
     _backgroundImageView = nil;
     _pageIndex = 0.0;
     _imageFile = nil;
-    
     NSLog(@"dealloc - %@",[self class]);
 }
 

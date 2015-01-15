@@ -32,17 +32,12 @@
 
 + (NSString *)getWebServiceUserGroup
 {
-    return @"group_user";
+    return @"group_user_user";
 }
 
-+ (NSString *)getWebServiceBillReceiver
++ (NSString *)getWebServiceBill
 {
-    return @"bill_receiver";
-}
-
-+ (NSString *)getWebServiceBillDebtor
-{
-    return @"bill_debtor";
+    return @"bill_user";
 }
 
 + (NSString *)getWebServiceAdmin
@@ -84,7 +79,7 @@
     return [[NSString alloc] initWithData:mutableData encoding:NSASCIIStringEncoding];
 }
 
-+ (BOOL) validateUrl: (NSString *) candidate {
++ (BOOL)validateUrl: (NSString *) candidate {
     if(![candidate isEqual:[NSNull null]]){
         NSURL *candidateURL = [NSURL URLWithString:candidate];
         if (candidateURL && candidateURL.scheme && candidateURL.host) {

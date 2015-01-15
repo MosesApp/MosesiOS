@@ -28,7 +28,6 @@
     [tabBarItem1 setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
     tabBarItem1.title = nil;
     
-    
     [tabBarItem2 setImage:[[UIImage imageNamed:@"newgroup.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [tabBarItem2 setSelectedImage:[[UIImage imageNamed:@"newgroup_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [tabBarItem2 setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
@@ -51,11 +50,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)shouldAutorotate
-{
-    return NO;
+- (void)dealloc {
+    NSLog(@"dealloc - %@",[self class]);
 }
-
-- (void)dealloc { NSLog(@"dealloc - %@",[self class]); } 
 
 @end

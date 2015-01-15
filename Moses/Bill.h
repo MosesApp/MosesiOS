@@ -13,32 +13,35 @@
 @interface Bill : NSObject
 
 @property (nonatomic) long long int dbId;
+@property (nonatomic) long long int billId;
+@property (nonatomic, copy) NSString* name;
+@property (nonatomic, copy) NSString* billDescription;
 @property (nonatomic) long long int groupId;
 @property (nonatomic, copy) NSString* receiptImageURL;
 @property (nonatomic, copy) UIImage* receiptImage;
-@property (nonatomic, copy) NSString* type;
-@property (nonatomic, copy) User* user;
-@property (nonatomic) long long int amount;
+@property (nonatomic) long long int billAmount;
 @property (nonatomic, copy) NSDate* deadline;
+@property (nonatomic, copy) NSString* relation;
 @property (nonatomic, copy) NSString* status;
-
+@property (nonatomic) long long int amount;
 
 - (id)initWithdbId:(long long int)dbId
+            billId:(long long int)billId
+              name:(NSString*)name
+   billDescription:(NSString*)billDescription
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
-              type:(NSString*)type
-              user:(User*)user
-            amount:(long long int)amount
+        billAmount:(long long int)billAmount
           deadline:(NSDate*)deadline
-            status:(NSString*)status;
+          relation:(NSString*)relation
+            status:(NSString*)status
+            amount:(long long int)amount;
 
 + (NSArray*)sharedBills;
 
 + (void)clearSharedBills;
 
-+ (void)getBillsToReceive:(long long int)userId;
-
-+ (void)getBillsToPay:(long long int)userId;
++ (void)getUserBills:(long long int)userId;
 
 + (NSMutableDictionary*)getFinancialSituation;
 

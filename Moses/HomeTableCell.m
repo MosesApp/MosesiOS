@@ -79,16 +79,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    self.thumbnailProfileImageView = nil;
-    self.nameLabel = nil;
-    self.valueLabel = nil;
-    self.thumbnailStatusImageView = nil;
 }
 
 - (void)dealloc {
@@ -96,7 +86,6 @@
     _valueLabel = nil;
     _thumbnailProfileImageView = nil;
     _thumbnailStatusImageView = nil;
-    
     NSLog(@"dealloc - %@",[self class]);
 }
 

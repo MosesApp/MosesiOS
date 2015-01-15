@@ -14,9 +14,6 @@
 @end
 
 @implementation AppDelegate
-{
-    UIStoryboard* _initalStoryboard;
-}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     
@@ -35,8 +32,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    _initalStoryboard = self.window.rootViewController.storyboard;
-    
     // Load Facebook API
     [FBLoginView class];
     
@@ -47,17 +42,6 @@
     pageControl.backgroundColor = [UIColor whiteColor];
     
     return YES;
-}
-
-- (void)resetWindowToInitialView
-{
-    for (UIView* view in self.window.subviews)
-    {
-        [view removeFromSuperview];
-    }
-    
-    UIViewController* initialScene = [_initalStoryboard instantiateInitialViewController];
-    self.window.rootViewController = initialScene;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

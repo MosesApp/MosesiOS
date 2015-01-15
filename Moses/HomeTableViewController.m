@@ -45,7 +45,7 @@
     
 }
 
--(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSMutableDictionary* financialSituation = [Bill getFinancialSituation];
     
@@ -195,7 +195,7 @@
         cell.thumbnailStatusImageView.image = [UIImage imageNamed:@"red.png"];
     }
     
-    cell.nameLabel.frame = CGRectMake(cell.nameLabel.frame.origin.x, cell.nameLabel.frame.origin.y, cell.valueLabel.frame.origin.x - cell.nameLabel.frame.origin.x,cell.nameLabel.frame.origin.y);
+    cell.nameLabel.frame = CGRectMake(cell.nameLabel.frame.origin.x, cell.nameLabel.frame.origin.y, cell.valueLabel.frame.origin.x - cell.nameLabel.frame.origin.x,cell.nameLabel.frame.size.height);
     
     cell.thumbnailStatusImageView.layer.cornerRadius = cell.thumbnailStatusImageView.frame.size.width / 2;
     cell.thumbnailStatusImageView.clipsToBounds = YES;
@@ -203,7 +203,7 @@
     if(group.image){
         cell.thumbnailProfileImageView.image = group.image;
     }else{
-        cell.thumbnailProfileImageView.image = [UIImage imageNamed:@"standard.jpg"];
+        cell.thumbnailProfileImageView.image = [UIImage imageNamed:@"profile_standard.jpg"];
     }
     cell.thumbnailProfileImageView.layer.cornerRadius = cell.thumbnailProfileImageView.frame.size.width / 2;
     cell.thumbnailProfileImageView.clipsToBounds = YES;
@@ -239,12 +239,15 @@
     return YES;
 }
 
-- (BOOL)shouldAutorotate
-{
-    return NO;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
+    groups = nil;
+    bills = nil;
+    searchResults = nil;
     NSLog(@"dealloc - %@",[self class]);
 }
 

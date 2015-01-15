@@ -12,15 +12,14 @@
 @interface Group : NSObject
 
 @property (nonatomic) long long int dbId;
-@property (nonatomic) long long int ownerId;
+@property (nonatomic) long long int creatorId;
 @property (nonatomic, copy) NSString* name;
 @property (nonatomic, copy) NSString* imageURL;
 @property (nonatomic, copy) UIImage* image;
 @property (nonatomic, copy) NSString* status;
 
-
 - (id)initWithdbId:(long long int)dbId
-           ownerId:(long long int)ownerId
+         creatorId:(long long int)creatorId
               name:(NSString*)name
           imageURL:(NSString*)imageURL
             status:(NSString*)status;

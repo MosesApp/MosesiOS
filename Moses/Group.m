@@ -16,7 +16,7 @@ static NSMutableArray *sharedUserGroups = nil;
 
 
 - (id)initWithdbId:(long long int)dbId
-           ownerId:(long long int)ownerId
+         creatorId:(long long int)creatorId
               name:(NSString*)name
           imageURL:(NSString*)imageURL
             status:(NSString*)status{
@@ -24,7 +24,7 @@ static NSMutableArray *sharedUserGroups = nil;
     self = [super init];
     if (self) {
         self.dbId = dbId;
-        self.ownerId = ownerId;
+        self.creatorId = creatorId;
         self.name = name;
         self.imageURL = imageURL;
         if([Settings validateUrl:self.imageURL]){
@@ -59,7 +59,7 @@ static NSMutableArray *sharedUserGroups = nil;
             for (NSDictionary *groupRelationKey in [groupJSON objectForKey:serviceKey]) {
                 NSDictionary *groupDict =  [groupRelationKey objectForKey:@"group"];
                 Group *group = [[Group alloc] initWithdbId:[groupDict[@"id"] intValue]
-                                                   ownerId:[groupDict[@"owner"] intValue]
+                                                 creatorId:[groupDict[@"creator"] intValue]
                                                       name:groupDict[@"name"]
                                                   imageURL:groupDict[@"image"]
                                                     status:groupDict[@"status"]];
@@ -74,16 +74,15 @@ static NSMutableArray *sharedUserGroups = nil;
     
     return [NSString stringWithFormat:@"\nGroup\n------\n%lld\n%lld\n%@\n%@\n%@\n------",
             self.dbId,
-            self.ownerId,
+            self.creatorId,
             self.name,
             self.imageURL,
             self.status];
 }
 
 - (void)dealloc {
-    
     _dbId = 0.0;
-    _ownerId = 0.0;
+    _creatorId = 0.0;
     _name = nil;
     _imageURL = nil;
     _image = nil;
