@@ -30,6 +30,11 @@
     return @"user";
 }
 
++ (NSString *)getWebServiceGroup
+{
+    return @"group";
+}
+
 + (NSString *)getWebServiceUserGroup
 {
     return @"group_user_user";

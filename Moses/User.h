@@ -32,12 +32,12 @@
 
 + (instancetype)castJSONToTypeWith:(NSDictionary*)json;
 
-- (instancetype)setUserWithWithFacebookId:(NSString *)facebookId
-                          firstName:(NSString *)firstName
-                           fullName:(NSString *)fullName
-                              email:(NSString *)email
-                             locale:(NSString *)locale
-                           timezone:(int)timezone;
+- (instancetype)setUserWithFacebookId:(NSString *)facebookId
+                            firstName:(NSString *)firstName
+                             fullName:(NSString *)fullName
+                                email:(NSString *)email
+                               locale:(NSString *)locale
+                             timezone:(int)timezone;
 
 
 - (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId;

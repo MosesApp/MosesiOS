@@ -11,6 +11,7 @@
 #import "PageContentViewController.h"
 #import "MBProgressHUD.h"
 #import "User.h"
+#import "FBFriend.h"
 #import "Group.h"
 #import "Bill.h"
 
@@ -28,6 +29,7 @@
     [User clearSharedUser];
     [Group clearSharedUserGroups];
     [Bill clearSharedBills];
+    [FBFriend clearSharedFBFriends];
     
     _loginFacebookButtonView = [[FBLoginView alloc] init];
     
@@ -75,7 +77,7 @@
                             user:(id<FBGraphUser>)user {
     
     if (![self isUser:_cachedUser equalToUser:user]) {
-        
+                
         // Cache user for second request
         _cachedUser = user;
         
@@ -99,12 +101,15 @@
             if(mosesUser.dbId){
                 
                 // Get user related groups
-                [Group getUserGroupRelationWithUserId:mosesUser.dbId];
+                [Group requestUserGroupRelationWithUserId:mosesUser.dbId];
                 
                 // Get user related bills
-                [Bill getUserBills:mosesUser.dbId];
+                [Bill requestUserBills:mosesUser.dbId];
                 
-                UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
+                // Get friends using Moses
+                [FBFriend requestFBFriends];
+                
+                UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
                 
                 // Destroy Loading animation
                 [hud hide:YES];
@@ -117,7 +122,7 @@
                 [hud hide:YES];
                 [hud removeFromSuperview];
                 
-                UIViewController *errorController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectFailController"];
+                UIViewController *errorController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectFailViewController"];
                 
                 self.view.window.rootViewController = errorController;
             }

@@ -31,17 +31,18 @@
     bills  = [Bill sharedBills];
     
     // Show logo at the top of table view
-    self.parentViewController.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
     
     // Change navigation bar color
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:255.0/255.0 alpha:1.0f];
-    self.navigationController.navigationBar.translucent = YES;
     
     // Define line separator properties
     self.tableView.separatorColor = [UIColor lightGrayColor];
     
     // Hide search bar at table load
     self.tableView.contentOffset = CGPointMake(0,  self.searchDisplayController.searchBar.frame.size.height - self.tableView.contentOffset.y);
+    
+    self.searchDisplayController.searchBar.delegate = self;
     
 }
 
@@ -238,6 +239,7 @@
     
     return YES;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

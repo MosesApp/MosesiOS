@@ -41,7 +41,7 @@
 
 + (void)clearSharedBills;
 
-+ (void)getUserBills:(long long int)userId;
++ (void)requestUserBills:(long long int)userId;
 
 + (NSMutableDictionary*)getFinancialSituation;
 

@@ -17,6 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Show logo at the top of table view
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
+    
+    // Change navigation bar color
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:255.0/255.0 alpha:1.0f];
+    self.navigationController.navigationBar.translucent = YES;
+    
     float statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     float navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
     float viewYBeginning = statusBarHeight + navigationBarHeight;

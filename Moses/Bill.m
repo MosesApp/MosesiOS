@@ -58,7 +58,7 @@ static NSMutableArray *sharedBills = nil;
     sharedBills = nil;
 }
 
-+ (void)getUserBills:(long long int)userId
++ (void)requestUserBills:(long long int)userId
 {
     if(sharedBills == nil){
         sharedBills = [[NSMutableArray alloc] init];
@@ -162,10 +162,12 @@ static NSMutableArray *sharedBills = nil;
     _billDescription = nil;
     _groupId = 0.0;
     _receiptImageURL = nil;
-    _amount = 0.0;
+    _receiptImage = nil;
+    _billAmount = 0.0;
     _deadline = nil;
     _relation = nil;
     _status = nil;
+    _amount = 0.0;
     NSLog(@"dealloc - %@",[self class]);
 }
 

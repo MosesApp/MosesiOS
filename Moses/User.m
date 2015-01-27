@@ -23,12 +23,12 @@ static User *sharedUser = nil;
 {
     @synchronized(self) {
         if (sharedUser == nil)
-            sharedUser = [[self alloc] setUserWithWithFacebookId:facebookId
-                                                       firstName:firstName
-                                                        fullName:fullName
-                                                           email:email
-                                                          locale:locale
-                                                        timezone:timezone];
+            sharedUser = [[self alloc] setUserWithFacebookId:facebookId
+                                                   firstName:firstName
+                                                    fullName:fullName
+                                                       email:email
+                                                      locale:locale
+                                                    timezone:timezone];
     }
     return sharedUser;
 }
@@ -43,12 +43,12 @@ static User *sharedUser = nil;
     sharedUser = nil;
 }
 
-- (instancetype)setUserWithWithFacebookId:(NSString *)facebookId
-                                firstName:(NSString *)firstName
-                                 fullName:(NSString *)fullName
-                                    email:(NSString *)email
-                                   locale:(NSString *)locale
-                                 timezone:(int)timezone
+- (instancetype)setUserWithFacebookId:(NSString *)facebookId
+                            firstName:(NSString *)firstName
+                             fullName:(NSString *)fullName
+                                email:(NSString *)email
+                               locale:(NSString *)locale
+                             timezone:(int)timezone
 {
     
     // Search user using facebook id

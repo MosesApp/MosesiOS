@@ -12,6 +12,9 @@
 		F90659E71A68129E0043AD9A /* GroupTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F90659E61A68129E0043AD9A /* GroupTableCell.m */; };
 		F925079F1A4C9281002927B3 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F925079E1A4C9281002927B3 /* HomeTableViewController.m */; };
 		F92507A11A4D447B002927B3 /* header.png in Resources */ = {isa = PBXBuildFile; fileRef = F92507A01A4D447B002927B3 /* header.png */; };
+		F930A79D1A6B7A7500EF7978 /* FBFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = F930A79C1A6B7A7500EF7978 /* FBFriend.m */; };
+		F930A79F1A6B8B3100EF7978 /* add_member.png in Resources */ = {isa = PBXBuildFile; fileRef = F930A79E1A6B8B3100EF7978 /* add_member.png */; };
+		F930A7A21A6B9B7300EF7978 /* FBFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F930A7A11A6B9B7300EF7978 /* FBFriendTableViewController.m */; };
 		F93E08931A4E1BC900A6F6F4 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F93E08921A4E1BC900A6F6F4 /* TabBarController.m */; };
 		F96F700D1A4F70D600D800C4 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = F96F700C1A4F70D600D800C4 /* Group.m */; };
 		F977BBCF1A53ACBF0039A132 /* HomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F977BBCE1A53ACBF0039A132 /* HomeTableCell.m */; };
@@ -36,6 +39,7 @@
 		F98E9A1C1A4A2F0600279FB0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F98E9A1B1A4A2F0600279FB0 /* User.m */; };
 		F98E9A1F1A4A49B800279FB0 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = F98E9A1E1A4A49B800279FB0 /* Settings.m */; };
 		F9B4614E1A5F5C690096D4C1 /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */; };
+		F9C644F51A77788E000EF59D /* NSString+FormValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = F9C644F41A77788E000EF59D /* NSString+FormValidation.m */; };
 		F9CE4CB91A48CB5C00D9EB50 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CE4CB81A48CB5C00D9EB50 /* main.m */; };
 		F9CE4CC41A48CB5C00D9EB50 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9CE4CC31A48CB5C00D9EB50 /* Images.xcassets */; };
 		F9CE4CD31A48CB5C00D9EB50 /* MosesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9CE4CD21A48CB5C00D9EB50 /* MosesTests.m */; };
@@ -54,6 +58,7 @@
 		F9CE4D181A48E62B00D9EB50 /* screen_login_iphone03.png in Resources */ = {isa = PBXBuildFile; fileRef = F9CE4D151A48E62B00D9EB50 /* screen_login_iphone03.png */; };
 		F9CE4D1A1A48EA6E00D9EB50 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F9CE4D191A48EA6E00D9EB50 /* logo.png */; };
 		F9D078861A6334A800A6C221 /* BillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9D078851A6334A800A6C221 /* BillViewController.m */; };
+		F9F7B2231A6C336200994F22 /* FBFriendTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F9F7B2221A6C336200994F22 /* FBFriendTableCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +79,11 @@
 		F925079D1A4C9281002927B3 /* HomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTableViewController.h; sourceTree = "<group>"; };
 		F925079E1A4C9281002927B3 /* HomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewController.m; sourceTree = "<group>"; };
 		F92507A01A4D447B002927B3 /* header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header.png; sourceTree = "<group>"; };
+		F930A79B1A6B7A7500EF7978 /* FBFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFriend.h; sourceTree = "<group>"; };
+		F930A79C1A6B7A7500EF7978 /* FBFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFriend.m; sourceTree = "<group>"; };
+		F930A79E1A6B8B3100EF7978 /* add_member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_member.png; sourceTree = "<group>"; };
+		F930A7A01A6B9B7300EF7978 /* FBFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFriendTableViewController.h; sourceTree = "<group>"; };
+		F930A7A11A6B9B7300EF7978 /* FBFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFriendTableViewController.m; sourceTree = "<group>"; };
 		F93E08911A4E1BC900A6F6F4 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		F93E08921A4E1BC900A6F6F4 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		F96F700B1A4F70D600D800C4 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
@@ -109,6 +119,8 @@
 		F98E9A1E1A4A49B800279FB0 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		F9B4614C1A5F5C690096D4C1 /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
 		F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
+		F9C644F31A77788E000EF59D /* NSString+FormValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FormValidation.h"; sourceTree = "<group>"; };
+		F9C644F41A77788E000EF59D /* NSString+FormValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormValidation.m"; sourceTree = "<group>"; };
 		F9CE4CB31A48CB5C00D9EB50 /* Moses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CE4CB71A48CB5C00D9EB50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9CE4CB81A48CB5C00D9EB50 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -135,6 +147,8 @@
 		F9CE4D191A48EA6E00D9EB50 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		F9D078841A6334A800A6C221 /* BillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillViewController.h; sourceTree = "<group>"; };
 		F9D078851A6334A800A6C221 /* BillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillViewController.m; sourceTree = "<group>"; };
+		F9F7B2211A6C336200994F22 /* FBFriendTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFriendTableCell.h; sourceTree = "<group>"; };
+		F9F7B2221A6C336200994F22 /* FBFriendTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFriendTableCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +175,7 @@
 		F90659E01A6771230043AD9A /* group_view */ = {
 			isa = PBXGroup;
 			children = (
+				F930A79E1A6B8B3100EF7978 /* add_member.png */,
 				F90659E31A679D770043AD9A /* profile_standard.jpg */,
 				F90659E11A678ABE0043AD9A /* upload_group_picture.jpg */,
 			);
@@ -226,6 +241,15 @@
 			name = connection_fail_view;
 			sourceTree = "<group>";
 		};
+		F9C644F21A777883000EF59D /* FormValidation */ = {
+			isa = PBXGroup;
+			children = (
+				F9C644F31A77788E000EF59D /* NSString+FormValidation.h */,
+				F9C644F41A77788E000EF59D /* NSString+FormValidation.m */,
+			);
+			name = FormValidation;
+			sourceTree = "<group>";
+		};
 		F9CE4CAA1A48CB5C00D9EB50 = {
 			isa = PBXGroup;
 			children = (
@@ -249,41 +273,18 @@
 			isa = PBXGroup;
 			children = (
 				F9CE4D121A48CE9F00D9EB50 /* Images */,
+				F9F7B22D1A6C368A00994F22 /* Class */,
+				F9F7B22F1A6C371700994F22 /* TabBar_Views */,
+				F9F7B2261A6C341600994F22 /* Login_Views */,
+				F9F7B2281A6C346C00994F22 /* Home_Views */,
+				F9F7B2251A6C33E300994F22 /* Group_Views */,
+				F9F7B2291A6C34EF00994F22 /* Bill_Views */,
+				F9F7B22A1A6C351100994F22 /* Connection_Views */,
+				F9F7B22B1A6C353F00994F22 /* Configuration_Views */,
+				F9F7B2271A6C345900994F22 /* MB_Views */,
 				F9CE4D101A48CE0E00D9EB50 /* Main.storyboard */,
-				F97B63BF1A58E7DC00707719 /* MBProgressHUD.h */,
-				F97B63C01A58E7DC00707719 /* MBProgressHUD.m */,
-				F98E9A1D1A4A49B800279FB0 /* Settings.h */,
-				F98E9A1E1A4A49B800279FB0 /* Settings.m */,
-				F97B63C71A593BBC00707719 /* WebService.h */,
-				F97B63C81A593BBC00707719 /* WebService.m */,
-				F98E9A1A1A4A2F0600279FB0 /* User.h */,
-				F98E9A1B1A4A2F0600279FB0 /* User.m */,
-				F96F700B1A4F70D600D800C4 /* Group.h */,
-				F96F700C1A4F70D600D800C4 /* Group.m */,
-				F97B63C41A592E5C00707719 /* Bill.h */,
-				F97B63C51A592E5C00707719 /* Bill.m */,
-				F980DC841A4F57C8009C11C8 /* ConnectFailViewController.h */,
-				F980DC851A4F57C8009C11C8 /* ConnectFailViewController.m */,
 				F9CE4CE01A48CCA200D9EB50 /* AppDelegate.h */,
 				F9CE4CE11A48CCA200D9EB50 /* AppDelegate.m */,
-				F9CE4CE21A48CCA200D9EB50 /* FBLoginViewController.h */,
-				F9CE4CE31A48CCA200D9EB50 /* FBLoginViewController.m */,
-				F9CE4CE41A48CCA200D9EB50 /* PageContentViewController.h */,
-				F9CE4CE51A48CCA200D9EB50 /* PageContentViewController.m */,
-				F925079D1A4C9281002927B3 /* HomeTableViewController.h */,
-				F925079E1A4C9281002927B3 /* HomeTableViewController.m */,
-				F977BBCD1A53ACBF0039A132 /* HomeTableCell.h */,
-				F977BBCE1A53ACBF0039A132 /* HomeTableCell.m */,
-				F9B4614C1A5F5C690096D4C1 /* GroupViewController.h */,
-				F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */,
-				F90659E51A68129E0043AD9A /* GroupTableCell.h */,
-				F90659E61A68129E0043AD9A /* GroupTableCell.m */,
-				F9D078841A6334A800A6C221 /* BillViewController.h */,
-				F9D078851A6334A800A6C221 /* BillViewController.m */,
-				F97B63CC1A5A7A2500707719 /* ConfigurationViewController.h */,
-				F97B63CD1A5A7A2500707719 /* ConfigurationViewController.m */,
-				F93E08911A4E1BC900A6F6F4 /* TabBarController.h */,
-				F93E08921A4E1BC900A6F6F4 /* TabBarController.m */,
 				F9CE4CC31A48CB5C00D9EB50 /* Images.xcassets */,
 				F9CE4CB61A48CB5C00D9EB50 /* Supporting Files */,
 			);
@@ -521,6 +522,132 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		F9F7B2241A6C33B600994F22 /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				F98E9A1A1A4A2F0600279FB0 /* User.h */,
+				F98E9A1B1A4A2F0600279FB0 /* User.m */,
+				F930A79B1A6B7A7500EF7978 /* FBFriend.h */,
+				F930A79C1A6B7A7500EF7978 /* FBFriend.m */,
+				F96F700B1A4F70D600D800C4 /* Group.h */,
+				F96F700C1A4F70D600D800C4 /* Group.m */,
+				F97B63C41A592E5C00707719 /* Bill.h */,
+				F97B63C51A592E5C00707719 /* Bill.m */,
+			);
+			name = DAO;
+			sourceTree = "<group>";
+		};
+		F9F7B2251A6C33E300994F22 /* Group_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F9B4614C1A5F5C690096D4C1 /* GroupViewController.h */,
+				F9B4614D1A5F5C690096D4C1 /* GroupViewController.m */,
+				F90659E51A68129E0043AD9A /* GroupTableCell.h */,
+				F90659E61A68129E0043AD9A /* GroupTableCell.m */,
+				F930A7A01A6B9B7300EF7978 /* FBFriendTableViewController.h */,
+				F930A7A11A6B9B7300EF7978 /* FBFriendTableViewController.m */,
+				F9F7B2211A6C336200994F22 /* FBFriendTableCell.h */,
+				F9F7B2221A6C336200994F22 /* FBFriendTableCell.m */,
+			);
+			name = Group_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B2261A6C341600994F22 /* Login_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F9CE4CE21A48CCA200D9EB50 /* FBLoginViewController.h */,
+				F9CE4CE31A48CCA200D9EB50 /* FBLoginViewController.m */,
+				F9CE4CE41A48CCA200D9EB50 /* PageContentViewController.h */,
+				F9CE4CE51A48CCA200D9EB50 /* PageContentViewController.m */,
+			);
+			name = Login_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B2271A6C345900994F22 /* MB_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F97B63BF1A58E7DC00707719 /* MBProgressHUD.h */,
+				F97B63C01A58E7DC00707719 /* MBProgressHUD.m */,
+			);
+			name = MB_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B2281A6C346C00994F22 /* Home_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F925079D1A4C9281002927B3 /* HomeTableViewController.h */,
+				F925079E1A4C9281002927B3 /* HomeTableViewController.m */,
+				F977BBCD1A53ACBF0039A132 /* HomeTableCell.h */,
+				F977BBCE1A53ACBF0039A132 /* HomeTableCell.m */,
+			);
+			name = Home_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B2291A6C34EF00994F22 /* Bill_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F9D078841A6334A800A6C221 /* BillViewController.h */,
+				F9D078851A6334A800A6C221 /* BillViewController.m */,
+			);
+			name = Bill_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B22A1A6C351100994F22 /* Connection_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F980DC841A4F57C8009C11C8 /* ConnectFailViewController.h */,
+				F980DC851A4F57C8009C11C8 /* ConnectFailViewController.m */,
+			);
+			name = Connection_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B22B1A6C353F00994F22 /* Configuration_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F97B63CC1A5A7A2500707719 /* ConfigurationViewController.h */,
+				F97B63CD1A5A7A2500707719 /* ConfigurationViewController.m */,
+			);
+			name = Configuration_Views;
+			sourceTree = "<group>";
+		};
+		F9F7B22C1A6C356D00994F22 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F98E9A1D1A4A49B800279FB0 /* Settings.h */,
+				F98E9A1E1A4A49B800279FB0 /* Settings.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		F9F7B22D1A6C368A00994F22 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				F9C644F21A777883000EF59D /* FormValidation */,
+				F9F7B22C1A6C356D00994F22 /* Settings */,
+				F9F7B22E1A6C36AA00994F22 /* WebService */,
+				F9F7B2241A6C33B600994F22 /* DAO */,
+			);
+			name = Class;
+			sourceTree = "<group>";
+		};
+		F9F7B22E1A6C36AA00994F22 /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				F97B63C71A593BBC00707719 /* WebService.h */,
+				F97B63C81A593BBC00707719 /* WebService.m */,
+			);
+			name = WebService;
+			sourceTree = "<group>";
+		};
+		F9F7B22F1A6C371700994F22 /* TabBar_Views */ = {
+			isa = PBXGroup;
+			children = (
+				F93E08911A4E1BC900A6F6F4 /* TabBarController.h */,
+				F93E08921A4E1BC900A6F6F4 /* TabBarController.m */,
+			);
+			name = TabBar_Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -617,6 +744,7 @@
 				F97B63D21A5B4A5D00707719 /* website_link.png in Resources */,
 				F9CE4D111A48CE0E00D9EB50 /* Main.storyboard in Resources */,
 				F9CE4D171A48E62B00D9EB50 /* screen_login_iphone02.png in Resources */,
+				F930A79F1A6B8B3100EF7978 /* add_member.png in Resources */,
 				F92507A11A4D447B002927B3 /* header.png in Resources */,
 				F98D69DD1A60A9A00099FB13 /* newbill_selected.png in Resources */,
 				F90659E21A678ABE0043AD9A /* upload_group_picture.jpg in Resources */,
@@ -651,6 +779,7 @@
 				F98E9A1C1A4A2F0600279FB0 /* User.m in Sources */,
 				F9CE4CE81A48CCA200D9EB50 /* AppDelegate.m in Sources */,
 				F98E9A1F1A4A49B800279FB0 /* Settings.m in Sources */,
+				F930A79D1A6B7A7500EF7978 /* FBFriend.m in Sources */,
 				F93E08931A4E1BC900A6F6F4 /* TabBarController.m in Sources */,
 				F9CE4CB91A48CB5C00D9EB50 /* main.m in Sources */,
 				F925079F1A4C9281002927B3 /* HomeTableViewController.m in Sources */,
@@ -658,10 +787,13 @@
 				F97B63C11A58E7DC00707719 /* MBProgressHUD.m in Sources */,
 				F980DC861A4F57C8009C11C8 /* ConnectFailViewController.m in Sources */,
 				F96F700D1A4F70D600D800C4 /* Group.m in Sources */,
+				F930A7A21A6B9B7300EF7978 /* FBFriendTableViewController.m in Sources */,
 				F9B4614E1A5F5C690096D4C1 /* GroupViewController.m in Sources */,
 				F9CE4CE91A48CCA200D9EB50 /* FBLoginViewController.m in Sources */,
 				F9CE4CEA1A48CCA200D9EB50 /* PageContentViewController.m in Sources */,
 				F97B63CE1A5A7A2500707719 /* ConfigurationViewController.m in Sources */,
+				F9C644F51A77788E000EF59D /* NSString+FormValidation.m in Sources */,
+				F9F7B2231A6C336200994F22 /* FBFriendTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,12 @@
 
 + (void)clearSharedUserGroups;
 
-+ (void)getUserGroupRelationWithUserId:(long long int)userId;
++ (void)requestUserGroupRelationWithUserId:(long long int)userId;
+
++ (NSString*)setGroupWithName:(NSString *)name
+                        image:(UIImage *)image
+                      creator:(long long int)creator
+                      members:(NSMutableArray *)members;
 
 - (NSString *)description;
 

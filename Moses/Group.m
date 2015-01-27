@@ -47,10 +47,12 @@ static NSMutableArray *sharedUserGroups = nil;
     sharedUserGroups = nil;
 }
 
-+ (void)getUserGroupRelationWithUserId:(long long int)userId
++ (void)requestUserGroupRelationWithUserId:(long long int)userId
 {
     
-    sharedUserGroups = [[NSMutableArray alloc] init];
+    if(sharedUserGroups == nil){
+        sharedUserGroups = [[NSMutableArray alloc] init];
+    }
     
     NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroup]];
     
@@ -67,6 +69,25 @@ static NSMutableArray *sharedUserGroups = nil;
             }
         }
     }
+}
+
++ (NSString*)setGroupWithName:(NSString *)name
+                        image:(UIImage *)image
+                      creator:(long long int)creator
+                      members:(NSMutableArray *)members
+{
+    
+    // Set JSON object
+    NSArray *objects = [NSArray arrayWithObjects:name, image, creator, members, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"name", @"image", @"creator", @"members", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+    NSDictionary *groupJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceGroup]];
+    
+    NSLog(@"%@", groupJSON);
+    
+    return nil;
+    
 }
 
 - (NSString *)description

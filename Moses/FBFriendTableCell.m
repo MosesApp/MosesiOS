@@ -1,14 +1,14 @@
 //
-//  GroupTableViewCell.m
+//  FBFriendTableCell.m
 //  Moses
 //
-//  Created by Daniel Marchena on 2015-01-15.
+//  Created by Daniel Marchena on 2015-01-18.
 //  Copyright (c) 2015 Moses. All rights reserved.
 //
 
-#import "GroupTableCell.h"
+#import "FBFriendTableCell.h"
 
-@implementation GroupTableCell
+@implementation FBFriendTableCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
@@ -21,10 +21,10 @@
     return self;
 }
 
-- (void)initThumbnailProfileImageView
+- (void)initNameLabel
 {
     int x = self.frame.size.width * 0.05;
-    int y = self.frame.size.height * 0.20;
+    int y = self.frame.size.height * 0.30;
     int width = self.frame.size.width * 0.10;
     int height = self.frame.size.height * 0.70;
     
@@ -33,10 +33,10 @@
     [self addSubview:self.thumbnailProfileImageView];
 }
 
-- (void)initNameLabel
+- (void)initThumbnailProfileImageView
 {
     int x = self.frame.size.width * 0.18;
-    int y = self.frame.size.height * 0.30;
+    int y = self.frame.size.height * 0.40;
     int width = self.frame.size.width * 0.50;
     int height = self.frame.size.height * 0.50;
     
@@ -46,6 +46,7 @@
     self.nameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:18.0f];
     [self addSubview:self.nameLabel];
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

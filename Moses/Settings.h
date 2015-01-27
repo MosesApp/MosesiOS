@@ -18,6 +18,8 @@
 
 + (NSString *)getWebServiceUser;
 
++ (NSString *)getWebServiceGroup;
+
 + (NSString *)getWebServiceUserGroup;
 
 + (NSString *)getWebServiceBill;
