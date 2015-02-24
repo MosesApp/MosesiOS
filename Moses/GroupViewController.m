@@ -179,16 +179,15 @@
     self.tableViewMembers.separatorColor = [UIColor lightGrayColor];
     self.tableViewMembers.delegate = self;
     [self.tableViewMembers setDataSource:self];
-    [self.tableViewMembers setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    //[self.tableViewMembers setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     [self.view addSubview:self.tableViewMembers];
-    
     
     // Add person to group button
     float addMemberButtonY = membersTableViewY + (viewFullHeight * 0.02);
     float addMemberButtonX = viewWidth * 0.19;
     float addMemberButtonWidth = viewWidth * 0.62;
-    float addMemberButtonHeight = viewFullHeight * 0.033;
+    float addMemberButtonHeight = viewFullHeight * 0.03;
     
     UIImage *addMemberImage = [UIImage imageNamed:@"add_member.png"];
     UIButton *addMemberButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -216,13 +215,16 @@
     NSMutableArray* members = [[NSMutableArray alloc] init];
 
     for(int i = 0; i < fbFriends.count; i++){
-        NSArray *keys = [NSArray arrayWithObjects:@"user_facebook", @"administrator", nil];
-        NSArray *objects = [NSArray arrayWithObjects:[fbFriends[i] facebookId], FALSE, nil];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects
+        if([fbFriends[i] selected]){
+            BOOL administrator = FALSE;
+        
+            NSArray *keys = [NSArray arrayWithObjects:@"user_facebook", @"administrator", nil];
+            NSArray *objects = [NSArray arrayWithObjects:[fbFriends[i] facebookId], [NSNumber numberWithBool:administrator], nil];
+            NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects
                                                                forKeys:keys];
-        [members addObject: dictionary];
+            [members addObject: dictionary];
+        }
     }
-    
     
     [Group setGroupWithName:self.nameField.text image:self.thumbnailImageView.image creator:user.dbId members:members];
 }
@@ -257,7 +259,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
-    // Get facebook friends that use the app
     fbFriends = [FBFriend sharedFBFriends];
     [self.tableViewMembers reloadData];
 }

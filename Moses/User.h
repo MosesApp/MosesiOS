@@ -40,7 +40,7 @@
                              timezone:(int)timezone;
 
 
-- (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId;
++ (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId;
 
 - (NSString *)description;
 

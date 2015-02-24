@@ -33,7 +33,7 @@
 + (NSString*)setGroupWithName:(NSString *)name
                         image:(UIImage *)image
                       creator:(long long int)creator
-                      members:(NSMutableArray *)members;
+                      members:(NSArray *)members;
 
 - (NSString *)description;
 

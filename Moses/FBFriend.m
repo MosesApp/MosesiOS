@@ -7,19 +7,30 @@
 //
 
 #import "FBFriend.h"
+#import "User.h"
 
 @implementation FBFriend
 
 static NSMutableArray *sharedFBFriends = nil;
 
 
-- (id)initWithFullName:(NSString*)fullName
-            facebookId:(NSString*)facebookId{
-    
+- (id)initWithDbId:      (long long int) dbId
+              facebookId:(NSString *)facebookId
+               firstName:(NSString *)firstName
+                fullName:(NSString *)fullName
+                   email:(NSString *)email
+                  locale:(NSString *)locale
+                timezone:(int)timezone{
+
     self = [super init];
     if (self) {
-        self.fullName = fullName;
+        self.dbId = dbId;
         self.facebookId = facebookId;
+        self.firstName = firstName;
+        self.fullName = fullName;
+        self.email = email;
+        self.locale = locale;
+        self.timezone = timezone;
         self.image = [UIImage imageWithData:
               [NSData dataWithContentsOfURL:
                        [NSURL URLWithString: [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", facebookId]]]];;
@@ -47,11 +58,32 @@ static NSMutableArray *sharedFBFriends = nil;
     [FBRequestConnection startForMyFriendsWithCompletionHandler:
      ^(FBRequestConnection *connection, id<FBGraphUser> friends, NSError *error)
      {
+         // Validate facebook friends on the database
+         NSString *facebook_ids = @"";
          NSArray *data = [friends objectForKey:@"data"];
          for (int i = 0; i < data.count; i++){
              id object = [data objectAtIndex:i];
-             FBFriend* fbFriendObj = [[FBFriend alloc] initWithFullName:[object objectForKey:@"name"] facebookId:[object objectForKey:@"id"]];
-             [sharedFBFriends addObject:fbFriendObj];
+             
+             facebook_ids = [NSString stringWithFormat:@"%@%@", facebook_ids, [object objectForKey:@"id"]];
+             
+             if((i+1) < data.count){
+                facebook_ids = [NSString stringWithFormat:@"%@&", facebook_ids];
+             }
+         }
+         
+         NSDictionary *facebook_friends = [User getUserWithFacebookId:facebook_ids];
+         for (int i = 0; i < [facebook_friends[@"count"] intValue]; i++){
+             
+             FBFriend* fbFriendObj = [[FBFriend alloc]
+                                      initWithDbId:[facebook_friends[@"results"][i][@"id"]intValue]
+                                      facebookId:facebook_friends[@"results"][i][@"facebook_id"]
+                                      firstName:facebook_friends[@"results"][i][@"first_name"]
+                                      fullName:facebook_friends[@"results"][i][@"full_name"]
+                                      email:facebook_friends[@"results"][i][@"email"]
+                                      locale:facebook_friends[@"results"][i][@"locale"]
+                                      timezone:[facebook_friends[@"results"][i][@"timezone"] intValue]];
+              [sharedFBFriends addObject:fbFriendObj];
+              
          }
      }
      ];

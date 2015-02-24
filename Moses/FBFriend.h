@@ -12,13 +12,23 @@
 
 @interface FBFriend : NSObject
 
+@property (nonatomic) long long int dbId;
+@property (nonatomic, copy) NSString* firstName;
 @property (nonatomic, copy) NSString* fullName;
+@property (nonatomic, copy) NSString* email;
 @property (nonatomic, copy) NSString* facebookId;
 @property (nonatomic, copy) UIImage* image;
+@property (nonatomic, copy) NSString *locale;
+@property (nonatomic) int timezone;
 @property (nonatomic) BOOL selected;
 
-- (id)initWithFullName:(NSString*)fullName
-            facebookId:(NSString*)facebookId;
+- (id)initWithDbId:      (long long int) dbId
+        facebookId:(NSString *)facebookId
+         firstName:(NSString *)firstName
+          fullName:(NSString *)fullName
+             email:(NSString *)email
+            locale:(NSString *)locale
+          timezone:(int)timezone;
 
 
 + (NSMutableArray*)sharedFBFriends;

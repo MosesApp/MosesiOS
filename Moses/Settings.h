@@ -28,9 +28,5 @@
 
 + (NSString *)getWebServicePassword;
 
-+ (NSString *)AFBase64EncodedStringFromString:(NSString *)string;
-
-+ (BOOL)validateUrl: (NSString *)candidate;
-
 @end
 

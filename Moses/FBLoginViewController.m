@@ -95,7 +95,7 @@
                                                        email:[user objectForKey:@"email"]
                                                       locale:[user objectForKey:@"locale"]
                                                     timezone:(int)[[user objectForKey:@"timezone"] integerValue]];
-
+            
             
             // Direct user to the correct view according to server status
             if(mosesUser.dbId){

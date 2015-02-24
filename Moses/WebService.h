@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface WebService : NSObject
 
@@ -15,6 +16,10 @@
 
 + (NSDictionary*)setDataWithJSONDict:(NSDictionary*)dict
                           serviceURL:(NSString*)serviceURL;
+
++ (NSString *)AFBase64EncodedStringFromString:(NSString *)string;
+
++ (BOOL)validateUrl: (NSString *) candidate;
 
 @end
 

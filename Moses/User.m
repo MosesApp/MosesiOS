@@ -52,10 +52,10 @@ static User *sharedUser = nil;
 {
     
     // Search user using facebook id
-    NSDictionary *userJSON = [self getUserWithFacebookId:facebookId];
+    NSDictionary *userJSON = [[self class] getUserWithFacebookId:facebookId];
     
     // Just create the user if not found
-    if([userJSON[@"detail"] isEqual:@"Not found"]){
+    if([userJSON[@"count"] integerValue] == 0){
         
         // Set JSON object
         NSArray *objects = [NSArray arrayWithObjects:facebookId, firstName, fullName, email, locale, [NSString stringWithFormat:@"%d", timezone], nil];
@@ -63,10 +63,12 @@ static User *sharedUser = nil;
         NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
         
         userJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceUsers]];
+        
+        return [[self class] castJSONToTypeWith:userJSON];
     }
     
-    return [[self class] castJSONToTypeWith:userJSON];
-    
+    return [[self class] castJSONToTypeWith:userJSON[@"results"][0]];
+
 }
 
 + (instancetype)castJSONToTypeWith:(NSDictionary*)json
@@ -82,7 +84,7 @@ static User *sharedUser = nil;
     return user;
 }
 
-- (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId
++ (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId
 {
     return [WebService getDataWithParam:facebookId serviceURL:[Settings getWebServiceUser]];
 }
