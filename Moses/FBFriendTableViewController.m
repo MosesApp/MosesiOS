@@ -71,7 +71,7 @@
         cell.contentView.frame = CGRectMake(cell.contentView.frame.origin.x,
                                             cell.contentView.frame.origin.y,
                                             self.tableView.frame.size.width,
-                                            cell.contentView.frame.size.height);
+                                            self.tableView.frame.size.height * 0.11);
         
         [cell initFields];
     }

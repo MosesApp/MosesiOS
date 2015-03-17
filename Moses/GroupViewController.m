@@ -358,6 +358,13 @@
     
     if (cell == nil) {
         cell = [[GroupTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        cell.contentView.frame = CGRectMake(cell.contentView.frame.origin.x,
+                                            cell.contentView.frame.origin.y,
+                                            self.tableViewMembers.frame.size.width,
+                                            self.tableViewMembers.frame.size.height * 0.25);
+        
+        [cell initFields];
     }
     
     FBFriend* fbFriend = nil;

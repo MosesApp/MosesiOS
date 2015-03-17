@@ -124,7 +124,7 @@
     
     UIView *sectionHeaderView = [[UIView alloc] init];
 
-    sectionHeaderView.frame = CGRectMake(0, 0, tableView.frame.size.width, tableView.frame.size.height * 0.15);
+    sectionHeaderView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height * 0.15);
     sectionHeaderView.layer.borderColor = [UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1].CGColor;
     sectionHeaderView.layer.borderWidth = 0.5;
     sectionHeaderView.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:255.0/255.0 alpha:1];

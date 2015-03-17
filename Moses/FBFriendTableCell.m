@@ -23,10 +23,10 @@
     [self initThumbnailProfileImageView];
 }
 
-- (void)initNameLabel
+- (void)initThumbnailProfileImageView
 {
     int x = self.contentView.frame.size.width * 0.05;
-    int y = self.contentView.frame.size.height * 0.30;
+    int y = self.contentView.frame.size.height * 0.15;
     int width = self.contentView.frame.size.width * 0.10;
     int height = self.contentView.frame.size.height * 0.70;
     
@@ -35,12 +35,12 @@
     [self addSubview:self.thumbnailProfileImageView];
 }
 
-- (void)initThumbnailProfileImageView
+- (void)initNameLabel
 {
     int x = self.contentView.frame.size.width * 0.18;
-    int y = self.contentView.frame.size.height * 0.40;
+    int y = self.contentView.frame.size.height * 0.30;
     int width = self.contentView.frame.size.width * 0.50;
-    int height = self.contentView.frame.size.height * 0.50;
+    int height = self.contentView.frame.size.height * 0.40;
     
     // configure control(s)
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];

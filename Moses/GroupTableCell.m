@@ -14,19 +14,20 @@
     reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self initNameLabel];
-        [self initThumbnailProfileImageView];
-    }
     return self;
+}
+
+- (void)initFields{
+    [self initNameLabel];
+    [self initThumbnailProfileImageView];
 }
 
 - (void)initThumbnailProfileImageView
 {
-    int x = self.frame.size.width * 0.05;
-    int y = self.frame.size.height * 0.20;
-    int width = self.frame.size.width * 0.10;
-    int height = self.frame.size.height * 0.70;
+    int x = self.contentView.frame.size.width * 0.05;
+    int y = self.contentView.frame.size.height * 0.15;
+    int width = self.contentView.frame.size.width * 0.10;
+    int height = self.contentView.frame.size.height * 0.70;
     
     // configure control(s)
     self.thumbnailProfileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -35,10 +36,10 @@
 
 - (void)initNameLabel
 {
-    int x = self.frame.size.width * 0.18;
-    int y = self.frame.size.height * 0.30;
-    int width = self.frame.size.width * 0.50;
-    int height = self.frame.size.height * 0.50;
+    int x = self.contentView.frame.size.width * 0.18;
+    int y = self.contentView.frame.size.height * 0.20;
+    int width = self.contentView.frame.size.width * 0.50;
+    int height = self.contentView.frame.size.height * 0.60;
     
     // configure control(s)
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
