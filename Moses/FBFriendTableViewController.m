@@ -66,6 +66,14 @@
     
     if (cell == nil) {
         cell = [[FBFriendTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        
+        cell.contentView.frame = CGRectMake(cell.contentView.frame.origin.x,
+                                            cell.contentView.frame.origin.y,
+                                            self.tableView.frame.size.width,
+                                            cell.contentView.frame.size.height);
+        
+        [cell initFields];
     }
     
     // Filter by search bar input

@@ -17,9 +17,11 @@
 + (NSDictionary*)setDataWithJSONDict:(NSDictionary*)dict
                           serviceURL:(NSString*)serviceURL;
 
++ (UIImage*) getImage:(NSString *)imageURL;
+
 + (NSString *)AFBase64EncodedStringFromString:(NSString *)string;
 
-+ (BOOL)validateUrl: (NSString *) candidate;
++ (BOOL)validateUrl: (NSString *)candidate;
 
 @end
 

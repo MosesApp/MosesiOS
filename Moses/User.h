@@ -30,8 +30,6 @@
 
 + (void)clearSharedUser;
 
-+ (instancetype)castJSONToTypeWith:(NSDictionary*)json;
-
 - (instancetype)setUserWithFacebookId:(NSString *)facebookId
                             firstName:(NSString *)firstName
                              fullName:(NSString *)fullName
@@ -39,6 +37,7 @@
                                locale:(NSString *)locale
                              timezone:(int)timezone;
 
+- (instancetype)castJSONToTypeWith:(NSDictionary*)json;
 
 + (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId;
 

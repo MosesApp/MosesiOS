@@ -76,6 +76,31 @@
     
 }
 
++ (UIImage*) getImage:(NSString *)imageURL {
+    
+    NSString *directoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *domainURL = [NSString stringWithFormat: @"%@://%@:%@/%@/", [Settings getWebServiceProtocol], [Settings getWebServiceDomain], [Settings getWebServiceNginxPort], [Settings getWebServiceMediaPath]];
+    NSString *imageName = [imageURL stringByReplacingOccurrencesOfString:domainURL withString:@""];
+    NSString *filePath = [NSString stringWithFormat: @"%@/%@", directoryPath, imageName];
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+    UIImage *image;
+
+    
+    if ([filemgr fileExistsAtPath: filePath] == YES){
+        NSFileManager *filemgr = [NSFileManager defaultManager];
+        NSData *databuffer = [filemgr contentsAtPath: filePath ];
+        image = [UIImage imageWithData:databuffer];
+        
+    }else{
+        image = [UIImage imageWithData:
+                 [NSData dataWithContentsOfURL:
+                  [NSURL URLWithString: imageURL]]];
+        
+        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[directoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", imageName]] options:NSAtomicWrite error:nil];
+    }
+
+    return image;
+}
 
 + (NSString *)AFBase64EncodedStringFromString:(NSString *)string {
     NSData *data = [NSData dataWithBytes:[string UTF8String] length:[string lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];

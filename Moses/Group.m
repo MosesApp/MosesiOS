@@ -9,6 +9,8 @@
 #import "Group.h"
 #import "Settings.h"
 #import "WebService.h"
+#import "User.h"
+#import "Bill.h"
 
 @implementation Group
 
@@ -27,9 +29,7 @@ static NSMutableArray *sharedUserGroups = nil;
         self.name = name;
         self.imageURL = imageURL;
         if([WebService validateUrl:self.imageURL]){
-            self.image = [UIImage imageWithData:
-                           [NSData dataWithContentsOfURL:
-                            [NSURL URLWithString: self.imageURL]]];
+            self.image = [WebService getImage: self.imageURL];
         }
         self.status = status;
     }
@@ -49,9 +49,7 @@ static NSMutableArray *sharedUserGroups = nil;
 + (void)requestUserGroupRelationWithUserId:(long long int)userId
 {
     
-    if(sharedUserGroups == nil){
-        sharedUserGroups = [[NSMutableArray alloc] init];
-    }
+    sharedUserGroups = [[NSMutableArray alloc] init];
     
     NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroup]];
     
@@ -70,13 +68,13 @@ static NSMutableArray *sharedUserGroups = nil;
     }
 }
 
-+ (NSString*)setGroupWithName:(NSString *)name
-                        image:(UIImage *)image
-                      creator:(long long int)creator
-                      members:(NSArray *)members
++ (NSDictionary*)setGroupWithName:(NSString *)name
+                            image:(UIImage *)image
+                          creator:(long long int)creator
+                          members:(NSArray *)members
 {
     
-    NSString *encodedString = [UIImagePNGRepresentation(image) base64EncodedStringWithOptions:0];
+    NSString *encodedString = [UIImageJPEGRepresentation(image, 0) base64EncodedStringWithOptions:0];
     // Set JSON object
     NSArray *objects = [NSArray arrayWithObjects:name, encodedString, [NSNumber numberWithLongLong:creator], members, nil];
     NSArray *keys = [NSArray arrayWithObjects:@"name", @"image", @"creator", @"members", nil];
@@ -85,10 +83,24 @@ static NSMutableArray *sharedUserGroups = nil;
     
     NSDictionary *groupJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceGroup]];
     
-    NSLog(@"%@",groupJSON);
+    NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
     
-    return nil;
-    
+    if([groupJSON objectForKey:@"id"] != nil){
+        
+        double dbId = [[User sharedUser] dbId];
+        // Get user related groups
+        [self requestUserGroupRelationWithUserId:dbId];
+        // Get user related bills
+        [Bill requestUserBills:dbId];
+        
+        [retMessage setValue:@"Group created successfully" forKey:@"message"];
+        [retMessage setValue:[NSNumber numberWithBool:true] forKey:@"success"];
+        
+        return retMessage;
+    }
+    [retMessage setObject:[[groupJSON objectForKey:@"non_field_errors"] objectAtIndex:0] forKey:@"message"];
+    [retMessage setValue:[NSNumber numberWithBool:false] forKey:@"success"];
+    return retMessage;
 }
 
 - (NSString *)description

@@ -14,21 +14,23 @@
       reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self initThumbnailProfileImageView];
-        [self initNameLabel];
-        [self initValueLabel];
-        [self initThumbnailStatusImageView];
-    }
     return self;
+}
+
+- (void)initFields
+{
+    [self initThumbnailProfileImageView];
+    [self initNameLabel];
+    [self initValueLabel];
+    [self initThumbnailStatusImageView];
 }
 
 - (void)initThumbnailProfileImageView
 {
-    int x = self.frame.size.width * 0.05;
-    int y = self.frame.size.height * 0.30;
-    int width = self.frame.size.width * 0.10;
-    int height = self.frame.size.height * 0.70;
+    int x = self.contentView.frame.size.width * 0.05;
+    int y = self.contentView.frame.size.height * 0.15;
+    int width = self.contentView.frame.size.width * 0.10;
+    int height = self.contentView.frame.size.height * 0.70;
     
     // configure control(s)
     self.thumbnailProfileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -38,10 +40,10 @@
 
 - (void)initNameLabel
 {
-    int x = self.frame.size.width * 0.18;
-    int y = self.frame.size.height * 0.40;
-    int width = self.frame.size.width * 0.50;
-    int height = self.frame.size.height * 0.50;
+    int x = self.contentView.frame.size.width * 0.18;
+    int y = self.contentView.frame.size.height * 0.20;
+    int width = self.contentView.frame.size.width * 0.50;
+    int height = self.contentView.frame.size.height * 0.60;
     
     // configure control(s)
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -52,10 +54,10 @@
 
 - (void)initValueLabel
 {
-    int x = self.frame.size.width * 0.75;
-    int y = self.frame.size.height * 0.40;
-    int width = self.frame.size.width * 0.50;
-    int height = self.frame.size.height * 0.50;
+    int x = self.contentView.frame.size.width * 0.75;
+    int y = self.contentView.frame.size.height * 0.20;
+    int width = self.contentView.frame.size.width * 0.50;
+    int height = self.contentView.frame.size.height * 0.60;
     
     // configure control(s)
     self.valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -66,10 +68,10 @@
 
 - (void)initThumbnailStatusImageView
 {
-    int x = self.frame.size.width * 0.90;
-    int y = self.frame.size.height * 0.50;
-    int width = self.frame.size.width * 0.04;
-    int height = self.frame.size.height * 0.30;
+    int x = self.contentView.frame.size.width * 0.90;
+    int y = self.contentView.frame.size.height * 0.40;
+    int width = self.contentView.frame.size.width * 0.04;
+    int height = self.contentView.frame.size.height * 0.20;
     
     // configure control(s)
     self.thumbnailStatusImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];

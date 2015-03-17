@@ -64,14 +64,14 @@ static User *sharedUser = nil;
         
         userJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceUsers]];
         
-        return [[self class] castJSONToTypeWith:userJSON];
+        return [self castJSONToTypeWith:userJSON];
     }
     
-    return [[self class] castJSONToTypeWith:userJSON[@"results"][0]];
+    return [self castJSONToTypeWith:userJSON[@"results"][0]];
 
 }
 
-+ (instancetype)castJSONToTypeWith:(NSDictionary*)json
+- (instancetype)castJSONToTypeWith:(NSDictionary*)json
 {
     User *user = [[User alloc] init];
     user.dbId = [json[@"id"] integerValue];
@@ -86,7 +86,8 @@ static User *sharedUser = nil;
 
 + (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId
 {
-    return [WebService getDataWithParam:facebookId serviceURL:[Settings getWebServiceUser]];
+    return [WebService getDataWithParam:facebookId
+                             serviceURL:[Settings getWebServiceUser]];
 }
 
 - (id)copyWithZone:(NSZone *)zone {

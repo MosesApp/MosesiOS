@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GroupViewController : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface GroupViewController : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) UITextField *nameField;

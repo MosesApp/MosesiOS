@@ -12,10 +12,12 @@
 #import "Group.h"
 #import "User.h"
 #import "NSString+FormValidation.h"
+#import "MBProgressHUD.h"
 
 @interface GroupViewController ()
 {
     NSMutableArray *fbFriends;
+    NSDictionary* retMessage;
     CGRect membersTableViewFrame;
     CGRect addMemberButtonFrame;
 }
@@ -82,7 +84,7 @@
 
     [mainHeader addSubview:titleLabel];
     
-    // "Done" button
+    /* "Done" button
     UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [doneButton setTitle:@"" forState:UIControlStateNormal];
     [doneButton addTarget:self
@@ -91,7 +93,7 @@
 
     
     UILabel *doneButtonLabel = [[UILabel alloc] init];
-    [doneButtonLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0]];
+    [doneButtonLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:14.0]];
     doneButtonLabel.text = @"DONE";
     doneButtonLabel.textColor = [UIColor whiteColor];
     
@@ -107,6 +109,11 @@
     
     [doneButton addSubview:doneButtonLabel];
     [mainHeader addSubview:doneButton];
+    */
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(registerGroup)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
     
     // Group name text field
     float nameFieldX = viewWidth * 0.05;
@@ -226,7 +233,40 @@
         }
     }
     
-    [Group setGroupWithName:self.nameField.text image:self.thumbnailImageView.image creator:user.dbId members:members];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Creating Group";
+    
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        retMessage = [Group setGroupWithName:self.nameField.text image:self.thumbnailImageView.image creator:user.dbId members:members];
+        
+        // Show message
+        [[[UIAlertView alloc] initWithTitle:nil message:[retMessage objectForKey:@"message"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
+        
+        // Destroy Loading animation
+        [hud hide:YES];
+        [hud removeFromSuperview];
+    });
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if([[retMessage objectForKey:@"success"] boolValue] == YES){
+        
+        retMessage = nil;
+        self.nameField.text = nil;
+        self.thumbnailImageView.image = [UIImage imageNamed:@"profile_standard.jpg"];
+        
+        FBFriend *fbFriend = nil;
+        for(int i = 0; i < [fbFriends count]; i++){
+            fbFriend = [fbFriends objectAtIndex:i];
+            fbFriend.selected = FALSE;
+        }
+        
+        [self.tabBarController setSelectedIndex:0];
+    }
+    retMessage = nil;
 }
 
 - (NSString *)validateForm {
@@ -384,6 +424,7 @@
 
 - (void)dealloc {
     fbFriends = nil;
+    retMessage = nil;
     _thumbnailImageView = nil;
     _nameField = nil;
     _tableViewMembers = nil;

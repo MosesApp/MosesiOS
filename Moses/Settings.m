@@ -20,6 +20,16 @@
     return @"http";
 }
 
++ (NSString *)getWebServiceNginxPort
+{
+    return @"8000";
+}
+
++ (NSString *)getWebServiceMediaPath
+{
+    return @"media";
+}
+
 + (NSString *)getWebServiceUsers
 {
     return @"users";

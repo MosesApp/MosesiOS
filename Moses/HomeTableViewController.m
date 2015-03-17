@@ -27,9 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    groups = [Group sharedUserGroups];
-    bills  = [Bill sharedBills];
-    
     // Show logo at the top of table view
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.png"]];
     
@@ -44,6 +41,81 @@
     
     self.searchDisplayController.searchBar.delegate = self;
     
+    // Initialize the refresh control.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor blueColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(getLatestGroups)
+                  forControlEvents:UIControlEventValueChanged];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    groups = [Group sharedUserGroups];
+    bills  = [Bill sharedBills];
+    
+    [self.tableView reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    if ([groups count] > 0) {
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        return 1;
+        
+    } else {
+        
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No group is currently available. Please pull down to refresh.";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+    }
+    
+    return 0;
+}
+
+- (void)getLatestGroups
+{
+    long long int dbId = [[User sharedUser] dbId];
+    
+    // Get user related groups
+    [Group requestUserGroupRelationWithUserId:dbId];
+    groups = [Group sharedUserGroups];
+    
+    // Get user related bills
+    [Bill requestUserBills:dbId];
+    bills  = [Bill sharedBills];
+    
+    // Reload table data
+    [self.tableView reloadData];
+    
+    // End the refreshing
+    if (self.refreshControl) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        self.refreshControl.attributedTitle = attributedTitle;
+        
+        [self.refreshControl endRefreshing];
+    }
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -161,6 +233,14 @@
     
     if (cell == nil) {
         cell = [[HomeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
+        
+        cell.contentView.frame = CGRectMake(cell.contentView.frame.origin.x,
+                                            cell.contentView.frame.origin.y,
+                                            self.tableView.frame.size.width,
+                                            self.tableView.frame.size.height * 0.11);
+        
+        [cell initFields];
     }
     
     // Filter by search bar input

@@ -14,7 +14,7 @@
 static NSMutableArray *sharedFBFriends = nil;
 
 
-- (id)initWithDbId:      (long long int) dbId
+- (id)initWithDbId:(long long int) dbId
               facebookId:(NSString *)facebookId
                firstName:(NSString *)firstName
                 fullName:(NSString *)fullName

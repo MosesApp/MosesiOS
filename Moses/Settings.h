@@ -14,6 +14,10 @@
 
 + (NSString *)getWebServiceProtocol;
 
++ (NSString *)getWebServiceNginxPort;
+
++ (NSString *)getWebServiceMediaPath;
+
 + (NSString *)getWebServiceUsers;
 
 + (NSString *)getWebServiceUser;

@@ -30,7 +30,7 @@
 
 + (void)requestUserGroupRelationWithUserId:(long long int)userId;
 
-+ (NSString*)setGroupWithName:(NSString *)name
++ (NSDictionary*)setGroupWithName:(NSString *)name
                         image:(UIImage *)image
                       creator:(long long int)creator
                       members:(NSArray *)members;

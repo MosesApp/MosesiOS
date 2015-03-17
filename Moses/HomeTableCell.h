@@ -15,4 +15,6 @@
 @property (nonatomic, strong) UIImageView *thumbnailProfileImageView;
 @property (nonatomic, strong) UIImageView *thumbnailStatusImageView;
 
+- (void) initFields;
+
 @end

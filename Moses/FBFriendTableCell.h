@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *thumbnailProfileImageView;
 
+- (void)initFields;
+
 @end
