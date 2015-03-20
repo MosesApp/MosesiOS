@@ -46,7 +46,7 @@
     self.refreshControl.backgroundColor = [UIColor blueColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
-                            action:@selector(getLatestGroups)
+                            action:@selector(getLatestGroups:)
                   forControlEvents:UIControlEventValueChanged];
 
 }
@@ -88,34 +88,34 @@
     return 0;
 }
 
-- (void)getLatestGroups
+- (void)getLatestGroups:(UIRefreshControl *)refresh
 {
-    long long int dbId = [[User sharedUser] dbId];
     
-    // Get user related groups
-    [Group requestUserGroupRelationWithUserId:dbId];
-    groups = [Group sharedUserGroups];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                forKey:NSForegroundColorAttributeName];
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+    self.refreshControl.attributedTitle = attributedTitle;
     
-    // Get user related bills
-    [Bill requestUserBills:dbId];
-    bills  = [Bill sharedBills];
-    
-    // Reload table data
-    [self.tableView reloadData];
-    
-    // End the refreshing
-    if (self.refreshControl) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            long long int dbId = [[User sharedUser] dbId];
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
-                                                                    forKey:NSForegroundColorAttributeName];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
-        self.refreshControl.attributedTitle = attributedTitle;
+        // Get user related groups
+        [Group requestUserGroupRelationWithUserId:dbId];
+        groups = [Group sharedUserGroups];
         
-        [self.refreshControl endRefreshing];
-    }
+        // Get user related bills
+        [Bill requestUserBills:dbId];
+        bills  = [Bill sharedBills];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Reload table data
+            [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
+        });
+    });
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

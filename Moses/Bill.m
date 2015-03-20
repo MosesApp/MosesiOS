@@ -60,9 +60,8 @@ static NSMutableArray *sharedBills = nil;
 
 + (void)requestUserBills:(long long int)userId
 {
-    if(sharedBills == nil){
-        sharedBills = [[NSMutableArray alloc] init];
-    }
+    
+    sharedBills = [[NSMutableArray alloc] init];
     
     NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceBill]];
     
