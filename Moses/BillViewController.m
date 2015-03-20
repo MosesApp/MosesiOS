@@ -7,6 +7,7 @@
 //
 
 #import "BillViewController.h"
+#import "ActionSheetStringPicker.h"
 
 @interface BillViewController ()
 
@@ -36,7 +37,26 @@
     
     [self.view addSubview:mainHeader];
     
-    // Create new group label
+    float mainHeaderWidth = mainHeader.frame.size.width;
+    float mainHeaderHeight = mainHeader.frame.size.height;
+    
+    // Create group thumbnail preview
+    float thumbnailImageViewHeight = mainHeaderHeight * 0.60;
+    float thumbnailImageViewWidth = mainHeaderWidth * 0.09;
+    float thumbnailImageViewX = mainHeaderWidth * 0.03;
+    float thumbnailImageViewY = (mainHeaderHeight/2) - (thumbnailImageViewHeight/2);
+    
+    UIImage *thumbnailImage = [UIImage imageNamed:@"bill_standard.jpg"];
+    self.thumbnailImageView = [[UIImageView alloc] init];
+    self.thumbnailImageView.image = thumbnailImage;
+    
+    self.thumbnailImageView.frame = CGRectMake(thumbnailImageViewX, thumbnailImageViewY, thumbnailImageViewWidth, thumbnailImageViewHeight);
+    self.thumbnailImageView.layer.cornerRadius = self.thumbnailImageView.frame.size.width / 2;
+    self.thumbnailImageView.clipsToBounds = YES;
+    
+    [mainHeader addSubview:self.thumbnailImageView];
+    
+    // Create new bill label
     UILabel *titleLabel =[[UILabel alloc] init];
     [titleLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0]];
     titleLabel.text = @"Create new bill";
@@ -44,65 +64,55 @@
     
     CGSize textSizeTitleLabel = [[titleLabel text] sizeWithAttributes:@{NSFontAttributeName:[titleLabel font]}];
     
-    float mainHeaderWidth = mainHeader.frame.size.width;
-    float mainHeaderHeight = mainHeader.frame.size.height;
-    float titleLabelYPosition = (mainHeaderHeight/2) - (textSizeTitleLabel.height/2);
-    
-    
-    titleLabel.frame = CGRectMake(mainHeaderWidth * 0.05, titleLabelYPosition, textSizeTitleLabel.width, textSizeTitleLabel.height);
+    float titleLabelWidth = textSizeTitleLabel.width;
+    float titleLabelHeight = textSizeTitleLabel.height;
+    float titleLabelX = mainHeaderWidth * 0.03 + thumbnailImageViewX + self.thumbnailImageView.frame.size.width;
+    float titleLabelY = (mainHeaderHeight/2) - (textSizeTitleLabel.height/2);
+
+        titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelWidth, titleLabelHeight);
     
     [mainHeader addSubview:titleLabel];
     
     // Done button
-    UILabel *doneButton =[[UILabel alloc] init];
-    [doneButton setFont:[UIFont fontWithName:@"Arial-BoldMT" size:12.0]];
-    doneButton.text = @"DONE";
-    doneButton.textColor = [UIColor whiteColor];
-    
-    CGSize textSizeDoneButton = [[doneButton text] sizeWithAttributes:@{NSFontAttributeName:[doneButton font]}];
-    
-    float doneButtonYPosition = (mainHeaderHeight/2) - (textSizeDoneButton.height/2);
-    
-    doneButton.frame = CGRectMake(mainHeaderWidth * 0.85, doneButtonYPosition, textSizeDoneButton.width, textSizeDoneButton.height);
-    
-    [mainHeader addSubview:doneButton];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(registerBill)];
+    self.navigationItem.rightBarButtonItem = doneButton;
     
     // Bill name text field
     float nameFieldY = viewYBeginning + mainHeaderHeight + (viewHeight * 0.02);
     
-    UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, nameFieldY, viewWidth * 0.90, 40)];
-    nameField.borderStyle = UITextBorderStyleRoundedRect;
-    nameField.layer.borderColor = [[UIColor clearColor]CGColor];
-    nameField.font = [UIFont systemFontOfSize:15];
-    nameField.placeholder = @"Enter a name for this bill";
+    self.nameField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, nameFieldY, viewWidth * 0.90, 40)];
+    self.nameField.borderStyle = UITextBorderStyleRoundedRect;
+    self.nameField.layer.borderColor = [[UIColor clearColor]CGColor];
+    self.nameField.font = [UIFont systemFontOfSize:15];
+    self.nameField.placeholder = @"Enter a name for this bill";
     
-    [self.view addSubview:nameField];
+    [self.view addSubview:self.nameField];
     
     // Bill description text field
     float descriptionFieldY = nameFieldY + mainHeaderHeight + (viewHeight * 0.02);
     
-    UITextField *descriptionField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, descriptionFieldY, viewWidth * 0.90, 40)];
-    descriptionField.borderStyle = UITextBorderStyleRoundedRect;
-    descriptionField.layer.borderColor = [[UIColor clearColor]CGColor];
-    descriptionField.font = [UIFont systemFontOfSize:15];
-    descriptionField.placeholder = @"Enter a description for this bill";
+    self.descriptionField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, descriptionFieldY, viewWidth * 0.90, 40)];
+    self.descriptionField.borderStyle = UITextBorderStyleRoundedRect;
+    self.descriptionField.layer.borderColor = [[UIColor clearColor]CGColor];
+    self.descriptionField.font = [UIFont systemFontOfSize:15];
+    self.descriptionField.placeholder = @"Enter a description for this bill";
     
-    [self.view addSubview:descriptionField];
+    [self.view addSubview:self.descriptionField];
+
+    // Bill group dropdowm field
+    float groupFieldY = descriptionFieldY + mainHeaderHeight + (viewHeight * 0.02);
     
+    self.groupField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, groupFieldY, viewWidth * 0.90, 40)];
+    self.groupField.delegate = self;
+    self.groupField.borderStyle = UITextBorderStyleRoundedRect;
+    self.groupField.layer.borderColor = [[UIColor clearColor]CGColor];
+    self.groupField.font = [UIFont systemFontOfSize:15];
+    self.groupField.placeholder = @"Associate a group to the bill";
     
-    // Bill amout text field
-    float amountFieldY = descriptionFieldY + mainHeaderHeight + (viewHeight * 0.02);
-    
-    UITextField *amountField = [[UITextField alloc] initWithFrame:CGRectMake(viewWidth * 0.05, amountFieldY, viewWidth * 0.90, 40)];
-    amountField.borderStyle = UITextBorderStyleRoundedRect;
-    amountField.layer.borderColor = [[UIColor clearColor]CGColor];
-    amountField.font = [UIFont systemFontOfSize:15];
-    amountField.placeholder = @"Enter an amount";
-    
-    [self.view addSubview:amountField];
+    [self.view addSubview:self.groupField];
     
     // Bill members box
-    float membersHeaderY = amountFieldY + descriptionField.frame.size.height + (viewHeight * 0.05);
+    float membersHeaderY = groupFieldY + self.groupField.frame.size.height + (viewHeight * 0.05);
     
     UIView *membersHeader =[[UIView alloc] initWithFrame:CGRectMake(0, membersHeaderY, viewWidth, viewHeight * 0.05)];
     membersHeader.backgroundColor = [UIColor colorWithRed:75.0/255.0 green:146.0/255.0 blue:66.0/255.0 alpha:1.0f];
@@ -128,6 +138,33 @@
     [membersHeader addSubview:membersHeaderLabel];
     
 }
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+
+    // Create an array of strings you want to show in the picker:
+    NSArray *groups = [NSArray arrayWithObjects:@"Group1", @"Group2", @"Group3", @"Group4", nil];
+    
+    [ActionSheetStringPicker showPickerWithTitle:@"Select a Group"
+                                            rows:groups
+                                initialSelection:0
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           NSLog(@"Picker: %@", picker);
+                                           NSLog(@"Selected Index: %d", selectedIndex);
+                                           NSLog(@"Selected Value: %@", selectedValue);
+                                           textField.text = selectedValue;
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                     }
+                                    origin:self.view];
+    return NO;
+}
+
+-(void)registerBill{
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

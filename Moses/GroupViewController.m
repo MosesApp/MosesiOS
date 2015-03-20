@@ -186,7 +186,6 @@
     self.tableViewMembers.separatorColor = [UIColor lightGrayColor];
     self.tableViewMembers.delegate = self;
     [self.tableViewMembers setDataSource:self];
-    //[self.tableViewMembers setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     [self.view addSubview:self.tableViewMembers];
     

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6532B8AF1ABCD2B700800793 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B89E1ABCD2B700800793 /* AbstractActionSheetPicker.m */; };
+		6532B8B01ABCD2B700800793 /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8A01ABCD2B700800793 /* ActionSheetCustomPicker.m */; };
+		6532B8B11ABCD2B700800793 /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8A31ABCD2B700800793 /* ActionSheetDatePicker.m */; };
+		6532B8B21ABCD2B700800793 /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8A51ABCD2B700800793 /* ActionSheetDistancePicker.m */; };
+		6532B8B31ABCD2B700800793 /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8A71ABCD2B700800793 /* ActionSheetLocalePicker.m */; };
+		6532B8B41ABCD2B700800793 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8AA1ABCD2B700800793 /* ActionSheetStringPicker.m */; };
+		6532B8B51ABCD2B700800793 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8AC1ABCD2B700800793 /* DistancePickerView.m */; };
+		6532B8B61ABCD2B700800793 /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6532B8AE1ABCD2B700800793 /* SWActionSheet.m */; };
+		6532B8B91ABCDC9C00800793 /* bill_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6532B8B81ABCDC9C00800793 /* bill_standard.jpg */; };
 		6584726B1AB5807D00231F48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584726A1AB5807D00231F48 /* FacebookSDK.framework */; };
 		F90659E21A678ABE0043AD9A /* upload_group_picture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F90659E11A678ABE0043AD9A /* upload_group_picture.jpg */; };
 		F90659E41A679D770043AD9A /* profile_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F90659E31A679D770043AD9A /* profile_standard.jpg */; };
@@ -67,6 +76,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6532B89D1ABCD2B700800793 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		6532B89E1ABCD2B700800793 /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		6532B89F1ABCD2B700800793 /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
+		6532B8A01ABCD2B700800793 /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetCustomPicker.m; sourceTree = "<group>"; };
+		6532B8A11ABCD2B700800793 /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
+		6532B8A21ABCD2B700800793 /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		6532B8A31ABCD2B700800793 /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		6532B8A41ABCD2B700800793 /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		6532B8A51ABCD2B700800793 /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		6532B8A61ABCD2B700800793 /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetLocalePicker.h; sourceTree = "<group>"; };
+		6532B8A71ABCD2B700800793 /* ActionSheetLocalePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetLocalePicker.m; sourceTree = "<group>"; };
+		6532B8A81ABCD2B700800793 /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
+		6532B8A91ABCD2B700800793 /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		6532B8AA1ABCD2B700800793 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		6532B8AB1ABCD2B700800793 /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
+		6532B8AC1ABCD2B700800793 /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		6532B8AD1ABCD2B700800793 /* SWActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWActionSheet.h; sourceTree = "<group>"; };
+		6532B8AE1ABCD2B700800793 /* SWActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWActionSheet.m; sourceTree = "<group>"; };
+		6532B8B81ABCDC9C00800793 /* bill_standard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bill_standard.jpg; sourceTree = "<group>"; };
 		6584726A1AB5807D00231F48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		F90659E11A678ABE0043AD9A /* upload_group_picture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload_group_picture.jpg; sourceTree = "<group>"; };
 		F90659E31A679D770043AD9A /* profile_standard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile_standard.jpg; sourceTree = "<group>"; };
@@ -160,6 +188,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6532B89C1ABCD2B700800793 /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				6532B89D1ABCD2B700800793 /* AbstractActionSheetPicker.h */,
+				6532B89E1ABCD2B700800793 /* AbstractActionSheetPicker.m */,
+				6532B89F1ABCD2B700800793 /* ActionSheetCustomPicker.h */,
+				6532B8A01ABCD2B700800793 /* ActionSheetCustomPicker.m */,
+				6532B8A11ABCD2B700800793 /* ActionSheetCustomPickerDelegate.h */,
+				6532B8A21ABCD2B700800793 /* ActionSheetDatePicker.h */,
+				6532B8A31ABCD2B700800793 /* ActionSheetDatePicker.m */,
+				6532B8A41ABCD2B700800793 /* ActionSheetDistancePicker.h */,
+				6532B8A51ABCD2B700800793 /* ActionSheetDistancePicker.m */,
+				6532B8A61ABCD2B700800793 /* ActionSheetLocalePicker.h */,
+				6532B8A71ABCD2B700800793 /* ActionSheetLocalePicker.m */,
+				6532B8A81ABCD2B700800793 /* ActionSheetPicker.h */,
+				6532B8A91ABCD2B700800793 /* ActionSheetStringPicker.h */,
+				6532B8AA1ABCD2B700800793 /* ActionSheetStringPicker.m */,
+				6532B8AB1ABCD2B700800793 /* DistancePickerView.h */,
+				6532B8AC1ABCD2B700800793 /* DistancePickerView.m */,
+				6532B8AD1ABCD2B700800793 /* SWActionSheet.h */,
+				6532B8AE1ABCD2B700800793 /* SWActionSheet.m */,
+			);
+			name = Pickers;
+			path = "../../../../Downloads/ActionSheetPicker-3.0-master/Pickers";
+			sourceTree = "<group>";
+		};
+		6532B8B71ABCDC6900800793 /* bill_view */ = {
+			isa = PBXGroup;
+			children = (
+				6532B8B81ABCDC9C00800793 /* bill_standard.jpg */,
+			);
+			name = bill_view;
+			sourceTree = "<group>";
+		};
 		F90659E01A6771230043AD9A /* group_view */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +378,7 @@
 		F9CE4D121A48CE9F00D9EB50 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6532B8B71ABCDC6900800793 /* bill_view */,
 				F90659E01A6771230043AD9A /* group_view */,
 				F98D69C61A6068710099FB13 /* connection_fail_view */,
 				F97B63D51A5B527F00707719 /* navigation_view */,
@@ -428,6 +491,7 @@
 		F9F7B22D1A6C368A00994F22 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				6532B89C1ABCD2B700800793 /* Pickers */,
 				F9C644F21A777883000EF59D /* FormValidation */,
 				F9F7B22C1A6C356D00994F22 /* Settings */,
 				F9F7B22E1A6C36AA00994F22 /* WebService */,
@@ -539,6 +603,7 @@
 				F977BBD91A5686770039A132 /* green.png in Resources */,
 				F9CE4D181A48E62B00D9EB50 /* screen_login_iphone03.png in Resources */,
 				F98D69E81A60AA520099FB13 /* home.png in Resources */,
+				6532B8B91ABCDC9C00800793 /* bill_standard.jpg in Resources */,
 				F90659E41A679D770043AD9A /* profile_standard.jpg in Resources */,
 				F98D69CA1A608BC10099FB13 /* tryagain_button.jpg in Resources */,
 				F9CE4D161A48E62B00D9EB50 /* screen_login_iphone01.png in Resources */,
@@ -576,10 +641,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9D078861A6334A800A6C221 /* BillViewController.m in Sources */,
+				6532B8B11ABCD2B700800793 /* ActionSheetDatePicker.m in Sources */,
 				F97B63C61A592E5C00707719 /* Bill.m in Sources */,
 				F977BBCF1A53ACBF0039A132 /* HomeTableCell.m in Sources */,
+				6532B8B41ABCD2B700800793 /* ActionSheetStringPicker.m in Sources */,
+				6532B8B61ABCD2B700800793 /* SWActionSheet.m in Sources */,
 				F90659E71A68129E0043AD9A /* GroupTableCell.m in Sources */,
+				6532B8B51ABCD2B700800793 /* DistancePickerView.m in Sources */,
 				F98E9A1C1A4A2F0600279FB0 /* User.m in Sources */,
+				6532B8B31ABCD2B700800793 /* ActionSheetLocalePicker.m in Sources */,
 				F9CE4CE81A48CCA200D9EB50 /* AppDelegate.m in Sources */,
 				F98E9A1F1A4A49B800279FB0 /* Settings.m in Sources */,
 				F930A79D1A6B7A7500EF7978 /* FBFriend.m in Sources */,
@@ -592,10 +662,13 @@
 				F96F700D1A4F70D600D800C4 /* Group.m in Sources */,
 				F930A7A21A6B9B7300EF7978 /* FBFriendTableViewController.m in Sources */,
 				F9B4614E1A5F5C690096D4C1 /* GroupViewController.m in Sources */,
+				6532B8AF1ABCD2B700800793 /* AbstractActionSheetPicker.m in Sources */,
 				F9CE4CE91A48CCA200D9EB50 /* FBLoginViewController.m in Sources */,
 				F9CE4CEA1A48CCA200D9EB50 /* PageContentViewController.m in Sources */,
+				6532B8B01ABCD2B700800793 /* ActionSheetCustomPicker.m in Sources */,
 				F97B63CE1A5A7A2500707719 /* ConfigurationViewController.m in Sources */,
 				F9C644F51A77788E000EF59D /* NSString+FormValidation.m in Sources */,
+				6532B8B21ABCD2B700800793 /* ActionSheetDistancePicker.m in Sources */,
 				F9F7B2231A6C336200994F22 /* FBFriendTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
