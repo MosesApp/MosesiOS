@@ -18,13 +18,17 @@
 
 + (NSString *)getWebServiceMediaPath;
 
++ (NSString *)getWebServiceCurrencies;
+
 + (NSString *)getWebServiceUsers;
 
 + (NSString *)getWebServiceUser;
 
 + (NSString *)getWebServiceGroup;
 
-+ (NSString *)getWebServiceUserGroup;
++ (NSString *)getWebServiceUserGroupUser;
+
++ (NSString *)getWebServiceUserGroupGroup;
 
 + (NSString *)getWebServiceBill;
 

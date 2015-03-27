@@ -9,7 +9,7 @@
 #import "Group.h"
 #import "Settings.h"
 #import "WebService.h"
-#import "User.h"
+#import "FBFriend.h"
 #import "Bill.h"
 
 @implementation Group
@@ -51,7 +51,7 @@ static NSMutableArray *sharedUserGroups = nil;
     
     sharedUserGroups = [[NSMutableArray alloc] init];
     
-    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroup]];
+    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroupUser]];
     
     for (NSDictionary *serviceKey in groupJSON) {
         if([serviceKey isEqual:@"results"]){
@@ -68,15 +68,40 @@ static NSMutableArray *sharedUserGroups = nil;
     }
 }
 
++ (NSArray*)requestUserGroupRelationWithGroupId:(long long int)groupId
+{
+    NSMutableArray *members = [[NSMutableArray alloc] init];
+    
+    NSDictionary *memberJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", groupId] serviceURL:[Settings getWebServiceUserGroupGroup]];
+    
+    
+    for (NSDictionary *serviceKey in memberJSON) {
+        if([serviceKey isEqual:@"results"]){
+            for (NSDictionary *memberRelationKey in [memberJSON objectForKey:serviceKey]) {
+                NSDictionary *memberDict =  [memberRelationKey objectForKey:@"user"];
+                FBFriend *user = [FBFriend castJSONToTypeWith:memberDict];
+                [members addObject:user];
+            }
+        }
+    }
+    
+    return members;
+}
+
 + (NSDictionary*)setGroupWithName:(NSString *)name
                             image:(UIImage *)image
                           creator:(long long int)creator
                           members:(NSArray *)members
 {
+    NSArray *objects = nil;
     
-    NSString *encodedString = [UIImageJPEGRepresentation(image, 0) base64EncodedStringWithOptions:0];
-    // Set JSON object
-    NSArray *objects = [NSArray arrayWithObjects:name, encodedString, [NSNumber numberWithLongLong:creator], members, nil];
+    if(image != nil){
+         NSString *encodedString = [UIImageJPEGRepresentation(image, 0) base64EncodedStringWithOptions:0];
+         objects = [NSArray arrayWithObjects:name, encodedString, [NSNumber numberWithLongLong:creator], members, nil];
+    }else{
+        objects = [NSArray arrayWithObjects:name, [NSNull null], [NSNumber numberWithLongLong:creator], members, nil];
+    }
+    
     NSArray *keys = [NSArray arrayWithObjects:@"name", @"image", @"creator", @"members", nil];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
@@ -84,6 +109,8 @@ static NSMutableArray *sharedUserGroups = nil;
     NSDictionary *groupJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceGroup]];
     
     NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
+    
+    NSLog(@"%@", groupJSON);
     
     if([groupJSON objectForKey:@"id"] != nil){
         

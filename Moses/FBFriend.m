@@ -74,19 +74,20 @@ static NSMutableArray *sharedFBFriends = nil;
          NSDictionary *facebook_friends = [User getUserWithFacebookId:facebook_ids];
          for (int i = 0; i < [facebook_friends[@"count"] intValue]; i++){
              
-             FBFriend* fbFriendObj = [[FBFriend alloc]
-                                      initWithDbId:[facebook_friends[@"results"][i][@"id"]intValue]
-                                      facebookId:facebook_friends[@"results"][i][@"facebook_id"]
-                                      firstName:facebook_friends[@"results"][i][@"first_name"]
-                                      fullName:facebook_friends[@"results"][i][@"full_name"]
-                                      email:facebook_friends[@"results"][i][@"email"]
-                                      locale:facebook_friends[@"results"][i][@"locale"]
-                                      timezone:[facebook_friends[@"results"][i][@"timezone"] intValue]];
+             FBFriend* fbFriendObj = [[self class] castJSONToTypeWith: facebook_friends[@"results"][i]];
+
               [sharedFBFriends addObject:fbFriendObj];
               
          }
      }
      ];
+}
+
++ (instancetype)castJSONToTypeWith:(NSDictionary*)json
+{
+    FBFriend *fbFriend = [[FBFriend alloc] initWithDbId:[json[@"id"] integerValue] facebookId:json[@"facebook_id"] firstName:json[@"first_name"] fullName:json[@"full_name"] email:json[@"email"] locale:json[@"locale"] timezone:[json[@"timezone"] intValue]];
+    
+    return fbFriend;
 }
 
 - (NSString *)description

@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BillViewController : UIViewController<UITextFieldDelegate>
+@interface BillViewController : UIViewController<UITextFieldDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *thumbnailImageView;
 @property (nonatomic, strong) UITextField *nameField;
 @property (nonatomic, strong) UITextField *descriptionField;
 @property (nonatomic, strong) UITextField *groupField;
+@property (nonatomic, strong) UITextField *currencyField;
+@property (nonatomic, strong) UITextField *amountField;
 
 @property (nonatomic, strong) UITableView *tableViewMembers;
 

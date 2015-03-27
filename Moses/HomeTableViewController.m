@@ -53,7 +53,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     groups = [Group sharedUserGroups];
     bills  = [Bill sharedBills];
     
@@ -65,6 +65,7 @@
     // Return the number of sections.
     if ([groups count] > 0) {
         
+        self.tableView.backgroundView = nil;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         return 1;
         
@@ -120,7 +121,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    NSMutableDictionary* financialSituation = [Bill getFinancialSituation];
+    NSDictionary* financialSituation = [Bill getFinancialSituation];
     
     UIView *sectionHeaderView = [[UIView alloc] init];
 

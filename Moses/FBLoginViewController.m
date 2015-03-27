@@ -14,6 +14,7 @@
 #import "FBFriend.h"
 #import "Group.h"
 #import "Bill.h"
+#import "Currency.h"
 
 @interface FBLoginViewController ()
 
@@ -106,8 +107,11 @@
                 // Get user related bills
                 [Bill requestUserBills:mosesUser.dbId];
                 
-                // Get friends using Moses
+                // Get friends currently using Moses app
                 [FBFriend requestFBFriends];
+                
+                // Get list of currencies
+                [Currency requestCurrencies];
                 
                 UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
                 

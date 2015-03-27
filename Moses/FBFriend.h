@@ -22,7 +22,7 @@
 @property (nonatomic) int timezone;
 @property (nonatomic) BOOL selected;
 
-- (id)initWithDbId:      (long long int) dbId
+- (id)initWithDbId:(long long int) dbId
         facebookId:(NSString *)facebookId
          firstName:(NSString *)firstName
           fullName:(NSString *)fullName
@@ -36,6 +36,8 @@
 + (void)clearSharedFBFriends;
 
 + (void)requestFBFriends;
+
++ (instancetype)castJSONToTypeWith:(NSDictionary*)json;
 
 - (NSString *)description;
 

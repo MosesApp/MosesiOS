@@ -30,6 +30,11 @@
     return @"media";
 }
 
++ (NSString *)getWebServiceCurrencies
+{
+    return @"currencies";
+}
+
 + (NSString *)getWebServiceUsers
 {
     return @"users";
@@ -45,9 +50,14 @@
     return @"group";
 }
 
-+ (NSString *)getWebServiceUserGroup
++ (NSString *)getWebServiceUserGroupUser
 {
     return @"group_user_user";
+}
+
++ (NSString *)getWebServiceUserGroupGroup
+{
+    return @"group_user_group";
 }
 
 + (NSString *)getWebServiceBill

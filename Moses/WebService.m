@@ -21,7 +21,12 @@
     NSString *basicAuthCredentials = [NSString stringWithFormat:@"%@:%@", [Settings getWebServiceAdmin], [Settings getWebServicePassword]];
     NSString *authValue = [NSString stringWithFormat:@"Basic %@",[self AFBase64EncodedStringFromString:basicAuthCredentials]];
     
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/%@/%@/", [Settings getWebServiceProtocol], [Settings getWebServiceDomain], serviceURL, param]]];
+    if(param != nil){
+        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/%@/%@/", [Settings getWebServiceProtocol], [Settings getWebServiceDomain], serviceURL, param]]];
+    }else{
+        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/%@/", [Settings getWebServiceProtocol], [Settings getWebServiceDomain], serviceURL]]];
+    }
+    
     [request setHTTPMethod:@"GET"];
     [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     [request setTimeoutInterval:60.0];
@@ -53,6 +58,7 @@
     NSString *authValue = [NSString stringWithFormat:@"Basic %@", [self AFBase64EncodedStringFromString:basicAuthCredentials]];
     
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://%@/%@/", [Settings getWebServiceProtocol], [Settings getWebServiceDomain], serviceURL]]];
+
     [request setHTTPMethod:@"POST"];
     [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
     [request setHTTPShouldHandleCookies:NO];
@@ -71,7 +77,7 @@
     
     NSData *jsonData = [requestReply dataUsingEncoding:NSUTF8StringEncoding];
     NSError *e;
-    
+
     return [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&e];
     
 }

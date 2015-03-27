@@ -21,7 +21,7 @@ static NSMutableArray *sharedBills = nil;
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
         billAmount:(long long int)billAmount
-          deadline:(NSDate*)deadline
+              date:(NSDate*)date
           relation:(NSString*)relation
             status:(NSString*)status
             amount:(long long int)amount{
@@ -40,7 +40,7 @@ static NSMutableArray *sharedBills = nil;
                            [NSURL URLWithString: self.receiptImageURL]]];
         }
         self.billAmount = billAmount;
-        self.deadline = deadline;
+        self.date = date;
         self.relation = relation;
         self.status = status;
         self.amount = amount;
@@ -73,7 +73,7 @@ static NSMutableArray *sharedBills = nil;
                 // Format date string
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
                 [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-                NSDate *deadline = [df dateFromString: billDetail[@"deadline"]];
+                NSDate *date = [df dateFromString: billDetail[@"date"]];
                 
                 
                 Bill *bill = [[Bill alloc] initWithdbId:[billDict[@"id"] intValue]
@@ -83,7 +83,7 @@ static NSMutableArray *sharedBills = nil;
                                                 groupId:[billDetail[@"group"] intValue]
                                         receiptImageURL:billDetail[@"receipt_image"]
                                              billAmount:[billDetail[@"amount"] intValue]
-                                               deadline:deadline
+                                                   date:date
                                                relation:billDict[@"relation"]
                                                  status:billDict[@"status"]
                                                  amount:[billDict[@"amount"] intValue]];
@@ -95,7 +95,7 @@ static NSMutableArray *sharedBills = nil;
     }
 }
 
-+ (NSMutableDictionary*)getFinancialSituation
++ (NSDictionary*)getFinancialSituation
 {
     NSMutableDictionary* financialSituation = [[NSMutableDictionary alloc] init];
     float owe = 0.0;
@@ -149,7 +149,7 @@ static NSMutableArray *sharedBills = nil;
             self.groupId,
             self.receiptImageURL,
             self.amount,
-            self.deadline,
+            self.date,
             self.relation,
             self.status];
 }
@@ -163,7 +163,7 @@ static NSMutableArray *sharedBills = nil;
     _receiptImageURL = nil;
     _receiptImage = nil;
     _billAmount = 0.0;
-    _deadline = nil;
+    _date = nil;
     _relation = nil;
     _status = nil;
     _amount = 0.0;

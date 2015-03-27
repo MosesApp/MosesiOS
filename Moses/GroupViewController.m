@@ -20,6 +20,7 @@
     NSDictionary* retMessage;
     CGRect membersTableViewFrame;
     CGRect addMemberButtonFrame;
+    BOOL imageUploaded;
 }
 @end
 
@@ -41,6 +42,7 @@
     float viewWidth = self.view.frame.size.width;
     float viewHeight = self.view.frame.size.height;
     float viewFullHeight = self.view.frame.size.height + statusBarHeight + navigationBarHeight;
+    float viewTabBarHeight = self.tabBarController.tabBar.frame.size.height;
     
     // Blue header box
     UIView *mainHeader =[[UIView alloc] initWithFrame:CGRectMake(0, viewY, viewWidth, viewHeight * 0.08)];
@@ -84,33 +86,7 @@
 
     [mainHeader addSubview:titleLabel];
     
-    /* "Done" button
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [doneButton setTitle:@"" forState:UIControlStateNormal];
-    [doneButton addTarget:self
-                action:@selector(registerGroup)
-           forControlEvents:UIControlEventTouchUpInside];
-
-    
-    UILabel *doneButtonLabel = [[UILabel alloc] init];
-    [doneButtonLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:14.0]];
-    doneButtonLabel.text = @"DONE";
-    doneButtonLabel.textColor = [UIColor whiteColor];
-    
-    CGSize textSizeDoneButton = [[doneButtonLabel text] sizeWithAttributes:@{NSFontAttributeName:[doneButtonLabel font]}];
-    
-    float doneButtonX = mainHeaderWidth * 0.85;
-    float doneButtonY = (mainHeaderHeight/2) - (textSizeDoneButton.height/2);
-    float doneButtonWidth = textSizeDoneButton.width;
-    float doneButtonHeight = textSizeDoneButton.height;
-    
-    doneButton.frame = CGRectMake(doneButtonX, doneButtonY, doneButtonWidth, doneButtonHeight);
-    doneButtonLabel.frame = CGRectMake(0, 0, doneButtonWidth, doneButtonHeight);
-    
-    [doneButton addSubview:doneButtonLabel];
-    [mainHeader addSubview:doneButton];
-    */
-    
+    // Done button
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(registerGroup)];
     self.navigationItem.rightBarButtonItem = doneButton;
     
@@ -130,23 +106,25 @@
     
     [self.view addSubview:self.nameField];
     
-    // Group "image upload" button
+    // Upload profile button
     float uploadButtonY = nameFieldY + (viewFullHeight * 0.09);
     float uploadButtonX = viewWidth * 0.15;
     float uploadButtonWidth = viewWidth * 0.70;
     float uploadButtonHeight = viewFullHeight * 0.06;
     
-    UIImage *uploadImage = [UIImage imageNamed:@"upload_group_picture.jpg"];
+    UIImage *uploadImage = [UIImage imageNamed:@"upload_group_picture.png"];
     UIButton *uploadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [uploadButton setImage:uploadImage forState:UIControlStateNormal];
     [uploadButton addTarget:self
                  action:@selector(selectPicture)
      forControlEvents:UIControlEventTouchUpInside];
     uploadButton.frame = CGRectMake(uploadButtonX, uploadButtonY, uploadButtonWidth, uploadButtonHeight);
+    // Check if user selected an image
+    imageUploaded = FALSE;
     
     [self.view addSubview:uploadButton];
     
-    // Green members box
+    // Group members box
     float membersHeaderY = uploadButtonY + uploadButtonHeight + (viewFullHeight * 0.02);
     float membersHeaderX = 0;
     float membersHeaderWidth = viewWidth;
@@ -176,7 +154,7 @@
     
     // Members table view controller
     float membersTableViewWidth = membersHeaderWidth;
-    float membersTableViewHeight = (self.view.frame.size.height - (membersHeaderHeight + membersHeaderY + self.tabBarController.tabBar.frame.size.height)) * 0.80;
+    float membersTableViewHeight = (viewHeight - (membersHeaderHeight + membersHeaderY + viewTabBarHeight)) * 0.80;
     float membersTableViewY = membersHeaderY + membersHeaderHeight;
     float membersTableViewX = membersHeaderX;
     membersTableViewFrame = CGRectMake(membersTableViewX, membersTableViewY, membersTableViewWidth, membersTableViewHeight);
@@ -210,7 +188,7 @@
 }
 
 - (void)registerGroup{
-    // next step is to implement validateForm
+
     NSString *errorMessage = [self validateForm];
     if (errorMessage) {
         [[[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
@@ -238,7 +216,16 @@
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        retMessage = [Group setGroupWithName:self.nameField.text image:self.thumbnailImageView.image creator:user.dbId members:members];
+        
+        UIImage *thumbnailImage = [UIImage imageNamed:@"profile_standard.jpg"];
+        
+        if (imageUploaded == FALSE){
+            thumbnailImage = nil;
+        }else{
+            thumbnailImage = self.thumbnailImageView.image;
+        }
+        
+        retMessage = [Group setGroupWithName:self.nameField.text image:thumbnailImage creator:user.dbId members:members];
         
         // Show message
         [[[UIAlertView alloc] initWithTitle:nil message:[retMessage objectForKey:@"message"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
@@ -263,6 +250,9 @@
             fbFriend.selected = FALSE;
         }
         
+        imageUploaded = FALSE;
+        
+        // Goes back to HomeView
         [self.tabBarController setSelectedIndex:0];
     }
     retMessage = nil;
@@ -280,7 +270,7 @@
         errorMessage = @"Please add at least one member to the group";
     }
     
-    self.nameField.layer.borderColor=[[UIColor clearColor]CGColor];
+    self.nameField.layer.borderColor = [[UIColor clearColor]CGColor];
     
     if (viewWithError) {
         [self changeViewToInvalid:viewWithError];
@@ -326,6 +316,7 @@
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     self.thumbnailImageView.image = chosenImage;
+    imageUploaded = TRUE;
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -378,9 +369,6 @@
     }
     
     cell.nameLabel.text = fbFriend.fullName;
-    
-    cell.thumbnailProfileImageView.layer.cornerRadius = cell.thumbnailProfileImageView.frame.size.width / 2;
-    cell.thumbnailProfileImageView.clipsToBounds = YES;
     
     cell.thumbnailProfileImageView.image = fbFriend.image;
     cell.thumbnailProfileImageView.layer.cornerRadius = cell.thumbnailProfileImageView.frame.size.width / 2;

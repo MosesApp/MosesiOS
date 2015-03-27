@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString* receiptImageURL;
 @property (nonatomic, copy) UIImage* receiptImage;
 @property (nonatomic) long long int billAmount;
-@property (nonatomic, copy) NSDate* deadline;
+@property (nonatomic, copy) NSDate* date;
 @property (nonatomic, copy) NSString* relation;
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic) long long int amount;
@@ -32,7 +32,7 @@
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
         billAmount:(long long int)billAmount
-          deadline:(NSDate*)deadline
+              date:(NSDate*)date
           relation:(NSString*)relation
             status:(NSString*)status
             amount:(long long int)amount;
@@ -43,7 +43,7 @@
 
 + (void)requestUserBills:(long long int)userId;
 
-+ (NSMutableDictionary*)getFinancialSituation;
++ (NSDictionary*)getFinancialSituation;
 
 + (float)getBalanceForGroupId:(long long int)groupId;
 

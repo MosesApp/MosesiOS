@@ -24,11 +24,13 @@
           imageURL:(NSString*)imageURL
             status:(NSString*)status;
 
-+ (NSMutableArray*)sharedUserGroups;
++ (NSArray*)sharedUserGroups;
 
 + (void)clearSharedUserGroups;
 
 + (void)requestUserGroupRelationWithUserId:(long long int)userId;
+
++ (NSArray*)requestUserGroupRelationWithGroupId:(long long int)groupId;
 
 + (NSDictionary*)setGroupWithName:(NSString *)name
                         image:(UIImage *)image
