@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BillTableCell : UITableViewCell
+@interface BillTableCell : UITableViewCell<UITextFieldDelegate>
 
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *thumbnailProfileImageView;
+@property (nonatomic, strong) UITextField *amountField;
 
 - (void)initFields;
 

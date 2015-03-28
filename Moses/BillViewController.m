@@ -6,18 +6,20 @@
 //  Copyright (c) 2015 Moses. All rights reserved.
 //
 
+#import "User.h"
 #import "BillViewController.h"
 #import "BillTableCell.h"
 #import "ActionSheetStringPicker.h"
 #import "Currency.h"
 #import "Group.h"
 #import "FBFriend.h"
+#import "MBProgressHUD.h"
 
 @interface BillViewController ()
 {
-    CGRect membersTableViewFrame;
     NSArray *members;
     BOOL imageUploaded;
+    BOOL singlePayer;
 }
 @end
 
@@ -79,7 +81,7 @@
     float titleLabelX = mainHeaderWidth * 0.03 + thumbnailImageViewX + self.thumbnailImageView.frame.size.width;
     float titleLabelY = (mainHeaderHeight/2) - (textSizeTitleLabel.height/2);
 
-        titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelWidth, titleLabelHeight);
+    titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelWidth, titleLabelHeight);
     
     [mainHeader addSubview:titleLabel];
     
@@ -164,6 +166,8 @@
     self.currencyField.font = [UIFont systemFontOfSize:15];
     self.currencyField.placeholder = @"Currency";
     self.currencyField.tag = 201;
+    // Only the bill creator paid it
+    singlePayer = FALSE;
     
     [self.view addSubview:self.currencyField];
     
@@ -213,7 +217,7 @@
     // Members box label
     UILabel *membersHeaderLabel =[[UILabel alloc] init];
     [membersHeaderLabel setFont:[UIFont fontWithName:@"Arial-BoldMT" size:15.0]];
-    membersHeaderLabel.text = @"Members";
+    membersHeaderLabel.text = @"How much each member paid";
     membersHeaderLabel.textColor = [UIColor whiteColor];
     
     CGSize textSizeMembersHeaderLabel = [[membersHeaderLabel text] sizeWithAttributes:@{NSFontAttributeName:[membersHeaderLabel font]}];
@@ -232,10 +236,9 @@
     float membersTableViewHeight = (viewHeight - (membersHeaderHeight + membersHeaderY + viewTabBarHeight)) * 1.50;
     float membersTableViewY = membersHeaderY + membersHeaderHeight;
     float membersTableViewX = membersHeaderX;
-    membersTableViewFrame = CGRectMake(membersTableViewX, membersTableViewY, membersTableViewWidth, membersTableViewHeight);
     
     self.tableViewMembers = [[UITableView alloc] init];
-    self.tableViewMembers.frame = CGRectMake(0, 0, 0, 0);
+    self.tableViewMembers.frame = CGRectMake(membersTableViewX, membersTableViewY, membersTableViewWidth, membersTableViewHeight);
     self.tableViewMembers.separatorColor = [UIColor lightGrayColor];
     self.tableViewMembers.delegate = self;
     [self.tableViewMembers setDataSource:self];
@@ -255,38 +258,74 @@
         for (Group *group in groups) {
             [groupsNames addObject:group.name];
         }
-    
-        [ActionSheetStringPicker showPickerWithTitle:@"Select a Group"
-                                                rows:groupsNames
-                                    initialSelection:0
-                                           doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                                textField.text = selectedValue;
+        
+        // Check if user is enrolled in a group
+        if (groups == nil || [groups count] == 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Join, or create a group!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+            alertView.tag = 301;
+            [alertView show];
+            return NO;
+        }
+        
+        [ActionSheetStringPicker
+         showPickerWithTitle:@"Select a Group"
+         rows:groupsNames
+         initialSelection:0
+         doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+             textField.text = selectedValue;
+             
+             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.tableViewMembers animated:YES];
+             hud.labelText = @"Loading";
+             hud.yOffset = (self.tableViewMembers.frame.size.height*0.20)*-1;
+
+             // Clear table view
+             members = nil;
+             [self.tableViewMembers reloadData];
+             self.tableViewMembers.separatorStyle = UITableViewCellSeparatorStyleNone;
+             
+             // Remove warning message from grid
+             for (UIView *view in self.tableViewMembers.subviews) {
+                 if ([view isKindOfClass:[UILabel class]]) {
+                     [view removeFromSuperview];
+                 }
+             }
+             
+             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                 
+                 Group *selectedGroup = nil;
+                                                   
+                 for(Group *group in groups){
+                     if([group.name isEqual:textField.text]){
+                        selectedGroup = group;
+                        break;
+                     }
+                 }
+                                                   
+                 // Get users related to group
+                 members = [Group requestUserGroupRelationWithGroupId:selectedGroup.dbId];
+                                                   
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     // Destroy Loading animation
+                     [hud hide:YES];
+                     [hud removeFromSuperview];
+                     
+                     if (members == nil || [members count] == 0) {
+                         UIViewController *errorController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectFailViewController"];
+                         self.view.window.rootViewController = errorController;
+                     }else{
+                         self.tableViewMembers.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                         // Reload table data
+                         [self.tableViewMembers reloadData];
+                     }
+                 });
+            });
                                                
-                                               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                   
-                                                   Group *selectedGroup = nil;
-                                                   
-                                                   for(Group *group in groups){
-                                                       if([group.name isEqual:textField.text]){
-                                                           selectedGroup = group;
-                                                           break;
-                                                       }
-                                                   }
-                                                   
-                                                   // Get users related to group
-                                                   members = [Group requestUserGroupRelationWithGroupId:selectedGroup.dbId];
-                                                   
-                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                       // Reload table data
-                                                       [self.tableViewMembers reloadData];
-                                                   });
-                                               });
-                                               
-                                                }
-                                         cancelBlock:^(ActionSheetStringPicker *picker) {
-                                             NSLog(@"Block Picker Canceled");
-                                         }
-                                              origin:self.view];
+        }
+        cancelBlock:^(ActionSheetStringPicker *picker) {
+            NSLog(@"Block Picker Canceled");
+        }
+        origin:self.view];
+        
         return NO;
     }
     // Currency picker
@@ -296,6 +335,12 @@
         
         for (Currency *currency in [Currency sharedCurrencies]) {
             [currencies addObject:currency.prefix];
+        }
+        
+        // Check if server returns a list of currencies
+        if (currencies == nil || [currencies count] == 0) {
+            [[[UIAlertView alloc] initWithTitle:nil message:@"No currencies, please try again later!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
+            return NO;
         }
         
         [ActionSheetStringPicker showPickerWithTitle:@"Select a Currency"
@@ -311,6 +356,27 @@
         return NO;
     }
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Check user with no group alert
+    if(alertView.tag == 301)
+    {
+        // Goes back to Group View
+        [self.tabBarController setSelectedIndex:1];
+    }
+    // Check choosen option after input bill amount
+    else if(alertView.tag == 302){
+        // No
+        if(buttonIndex == 0){
+            singlePayer = FALSE;
+        // Yes
+        }else if(buttonIndex == 1){
+            singlePayer = TRUE;
+        }
+        [self.tableViewMembers reloadData];
+    }
 }
 
 -(void)registerBill{
@@ -334,12 +400,17 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+
     return NO;
 }
 
 - (void)releaseAmountField
 {
     [self.amountField resignFirstResponder];
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Question" message:@"You're the single one paying this bill?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    alertView.tag = 302;
+    [alertView show];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -376,10 +447,22 @@
 {
     NSInteger linesTotal = [members count];
     
-    if(linesTotal > 0){
-        self.tableViewMembers.frame = membersTableViewFrame;
-    }else{
-        self.tableViewMembers.frame = CGRectMake(0, 0, 0, 0);
+    if(linesTotal == 0){
+
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] init];
+        
+        messageLabel.text = @"Select a group!";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        
+        messageLabel.frame = CGRectMake(0, (self.tableViewMembers.frame.size.height*0.20)*-1, self.tableViewMembers.frame.size.width, self.tableViewMembers.frame.size.height);
+        
+        [self.tableViewMembers addSubview:messageLabel];
+        self.tableViewMembers.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return linesTotal;
 }
@@ -403,11 +486,17 @@
     }
     FBFriend *member = [members objectAtIndex:indexPath.row];
     
-    cell.nameLabel.text = member.firstName;
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", member.firstName, member.fullName];
     
     cell.thumbnailProfileImageView.image = member.image;
     cell.thumbnailProfileImageView.layer.cornerRadius = cell.thumbnailProfileImageView.frame.size.width / 2;
     cell.thumbnailProfileImageView.clipsToBounds = YES;
+    
+    if(singlePayer == TRUE && member.dbId == [[User sharedUser] dbId]){
+        cell.amountField.text = self.amountField.text;
+    }else{
+        cell.amountField.text = @"0.00";
+    }
     
     return cell;
 }
@@ -416,36 +505,6 @@
 {
     return self.tableViewMembers.frame.size.height * 0.25;
 }
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return YES - we will be able to delete all rows
-    return YES;
-}
-
-/* Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        FBFriend* fbFriend = nil;
-        long int elementNum = indexPath.row;
-        for(int i = 0; elementNum >= 0; i++){
-            if([fbFriends[i] selected]){
-                elementNum--;
-            }
-            if(elementNum < 0){
-                fbFriend = fbFriends[i];
-                fbFriend.selected = FALSE;
-                [fbFriends replaceObjectAtIndex:i withObject:fbFriend];
-            }
-        }
-        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-*/
 
 
 - (void)didReceiveMemoryWarning {
@@ -456,6 +515,10 @@
 - (void)dealloc {
     _thumbnailImageView = nil;
     _nameField = nil;
+    _descriptionField = nil;
+    _groupField = nil;
+    _currencyField = nil;
+    _amountField = nil;
     _tableViewMembers = nil;
     members = nil;
     NSLog(@"dealloc - %@",[self class]);

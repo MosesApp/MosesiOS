@@ -252,7 +252,7 @@
         
         imageUploaded = FALSE;
         
-        // Goes back to HomeView
+        // Goes back to Home View
         [self.tabBarController setSelectedIndex:0];
     }
     retMessage = nil;
@@ -368,7 +368,7 @@
         }
     }
     
-    cell.nameLabel.text = fbFriend.fullName;
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", fbFriend.firstName, fbFriend.fullName];
     
     cell.thumbnailProfileImageView.image = fbFriend.image;
     cell.thumbnailProfileImageView.layer.cornerRadius = cell.thumbnailProfileImageView.frame.size.width / 2;
