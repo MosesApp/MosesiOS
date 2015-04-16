@@ -21,6 +21,7 @@
 		6532B8B91ABCDC9C00800793 /* bill_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6532B8B81ABCDC9C00800793 /* bill_standard.jpg */; };
 		6571BDB61AC3087E0004797E /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6571BDB51AC3087E0004797E /* Currency.m */; };
 		6584726B1AB5807D00231F48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584726A1AB5807D00231F48 /* FacebookSDK.framework */; };
+		65AD33531AC781BC00B38871 /* ImageExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AD33521AC781BC00B38871 /* ImageExpandViewController.m */; };
 		F90659E41A679D770043AD9A /* profile_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F90659E31A679D770043AD9A /* profile_standard.jpg */; };
 		F90659E71A68129E0043AD9A /* GroupTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F90659E61A68129E0043AD9A /* GroupTableCell.m */; };
 		F925079F1A4C9281002927B3 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F925079E1A4C9281002927B3 /* HomeTableViewController.m */; };
@@ -105,6 +106,8 @@
 		6571BDB41AC3087E0004797E /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
 		6571BDB51AC3087E0004797E /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
 		6584726A1AB5807D00231F48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		65AD33511AC781BC00B38871 /* ImageExpandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageExpandViewController.h; sourceTree = "<group>"; };
+		65AD33521AC781BC00B38871 /* ImageExpandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageExpandViewController.m; sourceTree = "<group>"; };
 		F90659E31A679D770043AD9A /* profile_standard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile_standard.jpg; sourceTree = "<group>"; };
 		F90659E51A68129E0043AD9A /* GroupTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableCell.h; sourceTree = "<group>"; };
 		F90659E61A68129E0043AD9A /* GroupTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTableCell.m; sourceTree = "<group>"; };
@@ -230,6 +233,15 @@
 			name = bill_view;
 			sourceTree = "<group>";
 		};
+		65AD33501AC7816C00B38871 /* ImageExpand_Views */ = {
+			isa = PBXGroup;
+			children = (
+				65AD33511AC781BC00B38871 /* ImageExpandViewController.h */,
+				65AD33521AC781BC00B38871 /* ImageExpandViewController.m */,
+			);
+			name = ImageExpand_Views;
+			sourceTree = "<group>";
+		};
 		F90659E01A6771230043AD9A /* group_view */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +342,7 @@
 		F9CE4CB51A48CB5C00D9EB50 /* Moses */ = {
 			isa = PBXGroup;
 			children = (
+				65AD33501AC7816C00B38871 /* ImageExpand_Views */,
 				F9CE4D121A48CE9F00D9EB50 /* Images */,
 				F9F7B22D1A6C368A00994F22 /* Class */,
 				F9F7B22F1A6C371700994F22 /* TabBar_Views */,
@@ -574,7 +587,7 @@
 		F9CE4CAB1A48CB5C00D9EB50 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Moses;
 				TargetAttributes = {
 					F9CE4CB21A48CB5C00D9EB50 = {
@@ -656,6 +669,7 @@
 				F9D078861A6334A800A6C221 /* BillViewController.m in Sources */,
 				65110D741ABF57E00059C7F2 /* ActionSheetDatePicker.m in Sources */,
 				F97B63C61A592E5C00707719 /* Bill.m in Sources */,
+				65AD33531AC781BC00B38871 /* ImageExpandViewController.m in Sources */,
 				F977BBCF1A53ACBF0039A132 /* HomeTableCell.m in Sources */,
 				65110D771ABF57E00059C7F2 /* ActionSheetStringPicker.m in Sources */,
 				65110D791ABF57E00059C7F2 /* SWActionSheet.m in Sources */,
@@ -743,7 +757,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

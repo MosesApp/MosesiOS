@@ -35,9 +35,7 @@ static NSMutableArray *sharedBills = nil;
         self.groupId = groupId;
         self.receiptImageURL = receiptImageURL;
         if([WebService validateUrl:self.receiptImageURL]){
-            self.receiptImage = [UIImage imageWithData:
-                          [NSData dataWithContentsOfURL:
-                           [NSURL URLWithString: self.receiptImageURL]]];
+            self.receiptImage = [WebService getImage: self.receiptImageURL];
         }
         self.billAmount = billAmount;
         self.date = date;

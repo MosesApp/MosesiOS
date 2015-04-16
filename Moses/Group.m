@@ -110,8 +110,6 @@ static NSMutableArray *sharedUserGroups = nil;
     
     NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
     
-    NSLog(@"%@", groupJSON);
-    
     if([groupJSON objectForKey:@"id"] != nil){
         
         double dbId = [[User sharedUser] dbId];

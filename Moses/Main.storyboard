@@ -177,6 +177,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="YCG-1J-IHq"/>
                     <navigationItem key="navigationItem" id="UcP-dn-Lgp"/>
+                    <connections>
+                        <segue destination="YoG-GX-BYs" kind="show" identifier="ImageAssociate" id="5tc-XE-3sI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mqk-du-oNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -232,12 +235,13 @@
                     <tabBarItem key="tabBarItem" title="" id="wad-Jd-lDx"/>
                     <navigationItem key="navigationItem" id="nzW-Hi-UgE"/>
                     <connections>
-                        <segue destination="5vV-d5-G09" kind="show" identifier="Associate" id="irV-j3-q8q"/>
+                        <segue destination="5vV-d5-G09" kind="show" identifier="FBAssociate" id="irV-j3-q8q"/>
+                        <segue destination="YoG-GX-BYs" kind="show" identifier="ImageAssociate" id="sig-eH-4qv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYQ-GZ-I2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="718.5" y="601"/>
+            <point key="canvasLocation" x="807.75" y="600.75"/>
         </scene>
         <!--Configuration View Controller-->
         <scene sceneID="xv8-fp-Z7c">
@@ -297,6 +301,24 @@
             </objects>
             <point key="canvasLocation" x="1723.5" y="601"/>
         </scene>
+        <!--Image Expand View Controller-->
+        <scene sceneID="h4E-8o-nj1">
+            <objects>
+                <viewController storyboardIdentifier="ImageExpandViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YoG-GX-BYs" customClass="ImageExpandViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SHq-sB-w4X"/>
+                        <viewControllerLayoutGuide type="bottom" id="6bF-4W-8tR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BOg-oO-Itf">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tLl-Ry-eXg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rlj-Ga-3ID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1723.5" y="1523.25"/>
+        </scene>
         <!--Home Table View Controller-->
         <scene sceneID="vrg-o4-fhk">
             <objects>
@@ -339,4 +361,7 @@
             <point key="canvasLocation" x="726" y="-153"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="5tc-XE-3sI"/>
+    </inferredMetricsTieBreakers>
 </document>

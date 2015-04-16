@@ -8,6 +8,7 @@
 
 #import "GroupViewController.h"
 #import "GroupTableCell.h"
+#import "ImageExpandViewController.h"
 #import "FBFriend.h"
 #import "Group.h"
 #import "User.h"
@@ -66,6 +67,11 @@
     self.thumbnailImageView.frame = CGRectMake(thumbnailImageViewX, thumbnailImageViewY, thumbnailImageViewWidth, thumbnailImageViewHeight);
     self.thumbnailImageView.layer.cornerRadius = self.thumbnailImageView.frame.size.width / 2;
     self.thumbnailImageView.clipsToBounds = YES;
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullImageTapped:)];
+    singleTap.numberOfTapsRequired = 1;
+    [self.thumbnailImageView setUserInteractionEnabled:YES];
+    [self.thumbnailImageView addGestureRecognizer:singleTap];
     
     [mainHeader addSubview:self.thumbnailImageView];
     
@@ -236,6 +242,12 @@
     });
 }
 
+- (void)fullImageTapped:sender {
+    
+    [self performSegueWithIdentifier:@"ImageAssociate" sender:sender];
+    
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if([[retMessage objectForKey:@"success"] boolValue] == YES){
@@ -304,7 +316,7 @@
 
 - (void)addMemberToGroup:sender
 {
-    [self performSegueWithIdentifier:@"Associate" sender:sender];
+    [self performSegueWithIdentifier:@"FBAssociate" sender:sender];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -408,6 +420,16 @@
         }
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+// This will get called too before the view appears
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ImageAssociate"]) {
+        
+        ImageExpandViewController *vc = [segue destinationViewController];
+        [vc setImage:self.thumbnailImageView.image];
     }
 }
 

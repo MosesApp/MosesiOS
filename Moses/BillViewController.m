@@ -9,6 +9,7 @@
 #import "User.h"
 #import "BillViewController.h"
 #import "BillTableCell.h"
+#import "ImageExpandViewController.h"
 #import "ActionSheetStringPicker.h"
 #import "Currency.h"
 #import "Group.h"
@@ -65,6 +66,11 @@
     self.thumbnailImageView.frame = CGRectMake(thumbnailImageViewX, thumbnailImageViewY, thumbnailImageViewWidth, thumbnailImageViewHeight);
     self.thumbnailImageView.layer.cornerRadius = self.thumbnailImageView.frame.size.width / 2;
     self.thumbnailImageView.clipsToBounds = YES;
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullImageTapped:)];
+    singleTap.numberOfTapsRequired = 1;
+    [self.thumbnailImageView setUserInteractionEnabled:YES];
+    [self.thumbnailImageView addGestureRecognizer:singleTap];
     
     [mainHeader addSubview:self.thumbnailImageView];
     
@@ -324,7 +330,7 @@
         cancelBlock:^(ActionSheetStringPicker *picker) {
             NSLog(@"Block Picker Canceled");
         }
-        origin:self.view];
+        origin:textField];
         
         return NO;
     }
@@ -352,7 +358,7 @@
                                          cancelBlock:^(ActionSheetStringPicker *picker) {
                                              NSLog(@"Block Picker Canceled");
                                          }
-                                              origin:self.view];
+                                              origin:textField];
         return NO;
     }
     return YES;
@@ -396,6 +402,12 @@
 - (void)addMemberToBill:sender
 {
     [self performSegueWithIdentifier:@"Associate" sender:sender];
+}
+
+- (void)fullImageTapped:sender {
+    
+    [self performSegueWithIdentifier:@"ImageAssociate" sender:sender];
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -497,6 +509,8 @@
     }else{
         cell.amountField.text = @"0.00";
     }
+    cell.amountField.delegate = self;
+    cell.amountField.tag = 303;
     
     return cell;
 }
@@ -506,6 +520,54 @@
     return self.tableViewMembers.frame.size.height * 0.25;
 }
 
+// This will get called too before the view appears
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ImageAssociate"]) {
+        
+        ImageExpandViewController *vc = [segue destinationViewController];
+        [vc setImage:self.thumbnailImageView.image];
+    }
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    // Only scroll for table view elements
+    if (self.view.frame.origin.y == 0 && textField.tag == 303)
+        [self scrollToY:-200.0];  // y can be changed to your liking
+    
+}
+
+-(void)keyboardWillHide:(NSNotification*)note
+{
+    [self scrollToY:0];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark - Scrolling
+
+-(void)scrollElement:(UIView *)view toPoint:(float)y
+{
+    CGRect theFrame = view.frame;
+    float orig_y = theFrame.origin.y;
+    float diff = y - orig_y;
+    
+    if (diff < 0)
+        [self scrollToY:diff];
+    
+    else
+        [self scrollToY:0];
+}
+
+-(void)scrollToY:(float)y
+{
+    [UIView animateWithDuration:0.3f animations:^{
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        self.view.transform = CGAffineTransformMakeTranslation(0, y);
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -58,7 +58,6 @@
     
     // configure control(s)
     self.amountField= [[UITextField alloc] initWithFrame:CGRectMake(x, y, width, height)];
-    self.amountField.delegate = self;
     self.amountField.borderStyle = UITextBorderStyleRoundedRect;
     self.amountField.layer.borderColor = [[UIColor clearColor]CGColor];
     self.amountField.font = [UIFont systemFontOfSize:15];
@@ -88,6 +87,7 @@
 {
     [super setSelected:selected animated:animated];
 }
+
 
 - (void)dealloc {
     _nameLabel = nil;
