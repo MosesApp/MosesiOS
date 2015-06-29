@@ -123,7 +123,7 @@ static NSMutableArray *sharedUserGroups = nil;
         
         return retMessage;
     }
-    [retMessage setObject:[[groupJSON objectForKey:@"non_field_errors"] objectAtIndex:0] forKey:@"message"];
+    [retMessage setObject:@"Failed to create group!" forKey:@"message"];
     [retMessage setValue:[NSNumber numberWithBool:false] forKey:@"success"];
     return retMessage;
 }

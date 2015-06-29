@@ -13,14 +13,17 @@
 #import "ActionSheetStringPicker.h"
 #import "Currency.h"
 #import "Group.h"
+#import "Bill.h"
 #import "FBFriend.h"
 #import "MBProgressHUD.h"
 
 @interface BillViewController ()
 {
     NSArray *members;
+    NSDictionary* retMessage;
     BOOL imageUploaded;
     BOOL singlePayer;
+    CGRect keyboardFrame;
 }
 @end
 
@@ -250,6 +253,9 @@
     [self.tableViewMembers setDataSource:self];
     
     [self.view addSubview:self.tableViewMembers];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(keyboardOnScreen:) name:UIKeyboardDidShowNotification object:nil];
 
 }
 
@@ -385,8 +391,151 @@
     }
 }
 
--(void)registerBill{
+-(void)registerBill
+{
+    NSString *errorMessage = [self validateForm];
+    if (errorMessage) {
+        [[[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
+        return;
+    }
+    
+    
+    /* Create members JSON for the Bill*/
+    NSMutableArray *billMembers = [[NSMutableArray alloc] init];
 
+    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    for (NSInteger j = 0; j < [self.tableViewMembers numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [self.tableViewMembers numberOfRowsInSection:j]; ++i)
+        {
+            [cells addObject:[self.tableViewMembers cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+        }
+    }
+    for (BillTableCell *cell in cells)
+    {
+        for (FBFriend *member in members) {
+            if ([cell.nameLabel.text isEqualToString:[NSString stringWithFormat:@"%@ %@", member.firstName, member.fullName]]) {
+                NSArray *keys;
+                NSArray *objects;
+                if ([cell.amountField.text intValue] > 0.0) {
+                    keys = [NSArray arrayWithObjects:@"member", @"relation", @"amount", nil];
+                    objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%lld", member.dbId], @"taker", cell.amountField.text, nil];
+                } else {
+                    keys = [NSArray arrayWithObjects:@"member", @"relation", nil];
+                    objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%lld", member.dbId], @"debtor", nil];
+                }
+                
+                NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects
+                                                                       forKeys:keys];
+                [billMembers addObject: dictionary];
+                break;
+            }
+
+        }
+    }
+    
+    /* Save Bill */
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Creating Bill";
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        UIImage *thumbnailImage = [[UIImage alloc] init];
+        
+        if (imageUploaded == FALSE){
+            thumbnailImage = nil;
+        }else{
+            thumbnailImage = self.thumbnailImageView.image;
+        }
+        
+        retMessage = [Bill setBillWithName:self.nameField.text
+                               description:self.descriptionField.text
+                                     group:self.groupField.text
+                                     image:thumbnailImage
+                                    amount:self.amountField.text
+                                  currency:self.currencyField.text
+                                   members:billMembers];
+        
+        // Show message
+        [[[UIAlertView alloc] initWithTitle:nil message:[retMessage objectForKey:@"message"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
+        
+        // Destroy Loading animation
+        [hud hide:YES];
+        [hud removeFromSuperview];
+    });
+
+    
+}
+
+- (NSString *)validateForm {
+    
+    NSString *errorMessage;
+    UITextField *viewWithError;
+    
+    NSIndexPath *indexPath;
+    BillTableCell *cell;
+    double total = 0.0;
+    
+    if ([self.nameField.text length] == 0){
+        viewWithError = self.nameField;
+        errorMessage = @"Please enter a bill name";
+    } else if ([self.descriptionField.text length] == 0) {
+        viewWithError = self.descriptionField;
+        errorMessage = @"Please enter a bill description";
+    } else if ([self.groupField.text length] == 0) {
+        viewWithError = self.groupField;
+        errorMessage = @"Please enter a group";
+    } else if ([self.currencyField.text length] == 0) {
+        viewWithError = self.currencyField;
+        errorMessage = @"Please enter a currency";
+    } else if ([self.amountField.text length] == 0) {
+        viewWithError = self.amountField;
+        errorMessage = @"Please enter a total amount";
+    }
+    
+    NSInteger sectionCount = [self.tableViewMembers numberOfSections];
+    for (NSInteger section = 0; section < sectionCount; section++) {
+        NSInteger rowCount = [self.tableViewMembers numberOfRowsInSection:section];
+        for (NSInteger row = 0; row < rowCount; row++) {
+            indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            cell = (BillTableCell *) [self.tableViewMembers cellForRowAtIndexPath:indexPath];
+            cell.amountField.layer.borderColor = [[UIColor clearColor]CGColor];
+            total += [cell.amountField.text integerValue];
+        }
+    }
+    
+    if (total != [self.amountField.text integerValue]) {
+        NSInteger sectionCount = [self.tableViewMembers numberOfSections];
+        for (NSInteger section = 0; section < sectionCount; section++) {
+            NSInteger rowCount = [self.tableViewMembers numberOfRowsInSection:section];
+            for (NSInteger row = 0; row < rowCount; row++) {
+                indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+                cell = (BillTableCell *) [self.tableViewMembers cellForRowAtIndexPath:indexPath];
+                cell.amountField.layer.borderWidth = 1;
+                cell.amountField.layer.borderColor = [[UIColor redColor] CGColor];
+                errorMessage = @"Please enter the proper payed amounts";
+            }
+        }
+    }
+    
+    self.nameField.layer.borderColor = [[UIColor clearColor] CGColor];
+    self.descriptionField.layer.borderColor = [[UIColor clearColor] CGColor];
+    self.groupField.layer.borderColor = [[UIColor clearColor] CGColor];
+    self.currencyField.layer.borderColor = [[UIColor clearColor] CGColor];
+    self.amountField.layer.borderColor = [[UIColor clearColor] CGColor];
+    
+    if (viewWithError) {
+        [self changeViewToInvalid:viewWithError];
+    }
+    return errorMessage;
+}
+
+- (void)changeViewToInvalid:(UITextField *)view {
+    if (view){
+        view.layer.borderWidth = 1;
+        view.layer.borderColor = [[UIColor redColor] CGColor];
+    }
 }
 
 - (void)selectPicture
@@ -418,12 +567,55 @@
 
 - (void)releaseAmountField
 {
-    [self.amountField resignFirstResponder];
-
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Question" message:@"You're the single one paying this bill?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    alertView.tag = 302;
-    [alertView show];
+    //[self.amountField resignFirstResponder];
+    [self.view endEditing:YES];
+    
+    if (self.amountField){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Question" message:@"You're the single one how payed this bill?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        alertView.tag = 302;
+        [alertView show];
+    }
 }
+
+-(void)validateMembersAmount
+{
+    
+    NSIndexPath *indexPath;
+    BillTableCell *cell;
+    double total = 0.0;
+    
+    [self.view endEditing:YES];
+    
+    NSInteger sectionCount = [self.tableViewMembers numberOfSections];
+    for (NSInteger section = 0; section < sectionCount; section++) {
+        NSInteger rowCount = [self.tableViewMembers numberOfRowsInSection:section];
+        for (NSInteger row = 0; row < rowCount; row++) {
+            indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            cell = (BillTableCell *) [self.tableViewMembers cellForRowAtIndexPath:indexPath];
+            total += [cell.amountField.text integerValue];
+        }
+    }
+    
+    NSString *alertMessage = [[NSString alloc] init];
+    BOOL alert = false;
+    
+    if (total == 0.0) {
+        alert = true;
+        alertMessage = @"Plese, fill up the Bill total amount field first!";
+    }
+    else if ([self.amountField.text integerValue] < total) {
+        alert = true;
+        alertMessage = @"The sum of member amounts is higher than the total amount!";
+    }
+    
+    if (alert) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Alert" message:alertMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        alertView.tag = 402;
+        [alertView show];
+    }
+    [self.tableViewMembers reloadData];
+}
+
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -512,6 +704,21 @@
     cell.amountField.delegate = self;
     cell.amountField.tag = 303;
     
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 30.0f)];
+    [toolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    // Create a flexible space to align buttons to the right
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    // Create a cancel button to dismiss the keyboard
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(validateMembersAmount)];
+    
+    // Add buttons to the toolbar
+    [toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, barButtonItem, nil]];
+    
+    // Set the toolbar as accessory view of an UITextField object
+    cell.amountField.inputAccessoryView = toolbar;
+    
     return cell;
 }
 
@@ -530,13 +737,15 @@
     }
 }
 
+#pragma mark - Scrolling
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     // Only scroll for table view elements
     if (self.view.frame.origin.y == 0 && textField.tag == 303)
-        [self scrollToY:-200.0];  // y can be changed to your liking
+        [self scrollToY:keyboardFrame.size.height*-1];  // y can be changed to your liking
     
 }
 
@@ -545,8 +754,6 @@
     [self scrollToY:0];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
-
-#pragma mark - Scrolling
 
 -(void)scrollElement:(UIView *)view toPoint:(float)y
 {
@@ -574,6 +781,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Get keyboard properties
+-(void)keyboardOnScreen:(NSNotification *)notification
+{
+    NSDictionary *info  = notification.userInfo;
+    NSValue      *value = info[UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect rawFrame      = [value CGRectValue];
+    keyboardFrame = [self.view convertRect:rawFrame fromView:nil];
+}
+
 - (void)dealloc {
     _thumbnailImageView = nil;
     _nameField = nil;
@@ -583,6 +800,7 @@
     _amountField = nil;
     _tableViewMembers = nil;
     members = nil;
+    retMessage = nil;
     NSLog(@"dealloc - %@",[self class]);
 }
 

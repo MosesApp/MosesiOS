@@ -223,7 +223,7 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-        UIImage *thumbnailImage = [UIImage imageNamed:@"profile_standard.jpg"];
+        UIImage *thumbnailImage = [[UIImage alloc] init];
         
         if (imageUploaded == FALSE){
             thumbnailImage = nil;

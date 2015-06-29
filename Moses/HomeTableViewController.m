@@ -11,6 +11,7 @@
 #import "Group.h"
 #import "Bill.h"
 #import "User.h"
+#import "Currency.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -101,7 +102,8 @@
     self.refreshControl.attributedTitle = attributedTitle;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            long long int dbId = [[User sharedUser] dbId];
+        
+        long long int dbId = [[User sharedUser] dbId];
         
         // Get user related groups
         [Group requestUserGroupRelationWithUserId:dbId];
@@ -110,6 +112,9 @@
         // Get user related bills
         [Bill requestUserBills:dbId];
         bills  = [Bill sharedBills];
+        
+        // Get list of currencies
+        [Currency requestCurrencies];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // Reload table data

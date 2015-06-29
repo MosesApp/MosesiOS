@@ -32,6 +32,8 @@
 
 + (NSString *)getWebServiceBill;
 
++ (NSString *)getWebServiceBillUser;
+
 + (NSString *)getWebServiceAdmin;
 
 + (NSString *)getWebServicePassword;

@@ -39,6 +39,14 @@
 
 + (NSArray*)sharedBills;
 
++ (NSDictionary*)setBillWithName:(NSString *)name
+                     description:(NSString *)description
+                           group:(NSString *)group
+                           image:(UIImage *)image
+                          amount:(NSString *)amount
+                        currency:(NSString *)currency
+                         members:(NSArray *)members;
+
 + (void)clearSharedBills;
 
 + (void)requestUserBills:(long long int)userId;

@@ -9,6 +9,8 @@
 #import "Bill.h"
 #import "Settings.h"
 #import "WebService.h"
+#import "Group.h"
+#import "Currency.h"
 
 @implementation Bill
 
@@ -54,6 +56,62 @@ static NSMutableArray *sharedBills = nil;
 + (void)clearSharedBills
 {
     sharedBills = nil;
+}
+
++ (NSDictionary*)setBillWithName:(NSString *)name
+                     description:(NSString *)description
+                           group:(NSString *)group
+                           image:(UIImage *)image
+                          amount:(NSString *)amount
+                        currency:(NSString *)currency
+                         members:(NSArray *)members
+{
+    
+    NSArray *objects = nil;
+    
+    // Get groupId based on selected one
+    NSArray *groups = [Group sharedUserGroups];
+    NSString *groupId = [[NSString alloc] init];
+    for (Group *groupObj in groups) {
+        if ([groupObj.name isEqualToString:group]) {
+            groupId = [NSString stringWithFormat:@"%lld", groupObj.dbId];
+        }
+    }
+    
+    // Get currencyId based on selected one
+    NSArray *currecies = [Currency sharedCurrencies];
+    NSString *currencyId = [[NSString alloc] init];
+    for (Currency *currencyObj in currecies) {
+        if ([currencyObj.prefix isEqualToString:currency]) {
+            currencyId = [NSString stringWithFormat:@"%lld", currencyObj.dbId];
+        }
+    }
+    
+    if(image != nil){
+        NSString *encodedString = [UIImageJPEGRepresentation(image, 0) base64EncodedStringWithOptions:0];
+        objects = [NSArray arrayWithObjects: name, description, groupId, encodedString, amount, currencyId, members, nil];
+    }else{
+        objects = [NSArray arrayWithObjects: name, description, groupId, [NSNull null], amount, currencyId, members, nil];
+    }
+    
+    NSArray *keys = [NSArray arrayWithObjects:@"name", @"description", @"group", @"receipt_image", @"amount", @"currency", @"members", nil];
+
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    NSDictionary *billJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceBill]];
+    
+    NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
+    
+    if([billJSON objectForKey:@"id"] != nil){
+        
+        [retMessage setValue:@"Bill created successfully" forKey:@"message"];
+        [retMessage setValue:[NSNumber numberWithBool:true] forKey:@"success"];
+        
+        return retMessage;
+    }
+    [retMessage setObject:@"Failed to create Bill!" forKey:@"message"];
+    [retMessage setValue:[NSNumber numberWithBool:false] forKey:@"success"];
+    return retMessage;
 }
 
 + (void)requestUserBills:(long long int)userId

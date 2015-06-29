@@ -31,6 +31,7 @@
     [Group clearSharedUserGroups];
     [Bill clearSharedBills];
     [FBFriend clearSharedFBFriends];
+    [Currency clearSharedCurrencies];
     
     _loginFacebookButtonView = [[FBLoginView alloc] init];
     

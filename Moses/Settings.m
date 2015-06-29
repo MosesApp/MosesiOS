@@ -12,7 +12,7 @@
 
 + (NSString *)getWebServiceDomain
 {
-    return @"mosesapp.me";
+    return @"186.206.198.117:8000";
 }
 
 + (NSString *)getWebServiceProtocol
@@ -60,9 +60,14 @@
     return @"group_user_group";
 }
 
-+ (NSString *)getWebServiceBill
++ (NSString *)getWebServiceBillUser
 {
     return @"bill_user";
+}
+
++ (NSString *)getWebServiceBill
+{
+    return @"bill";
 }
 
 + (NSString *)getWebServiceAdmin
