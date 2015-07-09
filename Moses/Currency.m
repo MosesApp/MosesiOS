@@ -20,8 +20,8 @@ static NSMutableArray *sharedCurrencies = nil;
     self = [super init];
     if (self) {
         self.dbId = dbId;
-        self.prefix = prefix;
-        self.prefixDescription = prefixDescription;
+        self.prefix = [NSString stringWithCString:[prefix cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
+        self.prefixDescription = [NSString stringWithCString:[prefixDescription cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
     }
     return self;
 }
@@ -40,7 +40,7 @@ static NSMutableArray *sharedCurrencies = nil;
 {
     sharedCurrencies = [[NSMutableArray alloc] init];
     
-    NSDictionary *currenciesJSON = [WebService getDataWithParam:nil  serviceURL:[Settings getWebServiceCurrencies]];
+    NSDictionary *currenciesJSON = [WebService getDataWithParam:nil  serviceURL:[Settings getWebServiceListCurrencies]];
     
     for (NSDictionary *serviceKey in currenciesJSON) {
         if([serviceKey isEqual:@"results"]){

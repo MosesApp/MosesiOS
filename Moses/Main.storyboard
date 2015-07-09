@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="05X-pR-IVY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="05X-pR-IVY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -299,7 +299,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1723.5" y="601"/>
+            <point key="canvasLocation" x="1780" y="600"/>
         </scene>
         <!--Image Expand View Controller-->
         <scene sceneID="h4E-8o-nj1">
@@ -346,6 +346,7 @@
                     <navigationItem key="navigationItem" id="xxh-gA-hhl"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="TLN-Eq-xhq" id="fPE-fZ-pp5"/>
+                        <segue destination="PGD-l5-rVI" kind="show" identifier="PaymentAssociate" id="wfZ-gF-uX2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dWi-Ll-vGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -359,10 +360,49 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="726" y="-153"/>
+            <point key="canvasLocation" x="738" y="-281"/>
+        </scene>
+        <!--Payment Table View Controller-->
+        <scene sceneID="bey-wp-Jgz">
+            <objects>
+                <tableViewController storyboardIdentifier="PaymentTableViewController" id="PGD-l5-rVI" customClass="PaymentTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pF6-aS-esI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Find Payments" id="IyG-Mf-1bT">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="PGD-l5-rVI" id="xMS-Bl-sy9"/>
+                            </connections>
+                        </searchBar>
+                        <connections>
+                            <outlet property="dataSource" destination="PGD-l5-rVI" id="gPd-YC-6A7"/>
+                            <outlet property="delegate" destination="PGD-l5-rVI" id="ESP-Pd-1CX"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="hdS-YA-jSN" id="fJB-ga-OlH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ax-V0-jZs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="hdS-YA-jSN">
+                    <connections>
+                        <outlet property="delegate" destination="PGD-l5-rVI" id="T2d-5d-tK1"/>
+                        <outlet property="searchBar" destination="IyG-Mf-1bT" id="UsX-vs-Su9"/>
+                        <outlet property="searchContentsController" destination="PGD-l5-rVI" id="Xmv-VZ-hbs"/>
+                        <outlet property="searchResultsDataSource" destination="PGD-l5-rVI" id="sda-7a-w8W"/>
+                        <outlet property="searchResultsDelegate" destination="PGD-l5-rVI" id="5fs-ex-t13"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1786" y="-281"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5tc-XE-3sI"/>
+        <segue reference="sig-eH-4qv"/>
     </inferredMetricsTieBreakers>
 </document>

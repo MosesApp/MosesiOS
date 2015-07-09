@@ -21,7 +21,11 @@
 		6532B8B91ABCDC9C00800793 /* bill_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6532B8B81ABCDC9C00800793 /* bill_standard.jpg */; };
 		6571BDB61AC3087E0004797E /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 6571BDB51AC3087E0004797E /* Currency.m */; };
 		6584726B1AB5807D00231F48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6584726A1AB5807D00231F48 /* FacebookSDK.framework */; };
+		65A4C8401B4E040C00D3F52E /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C83D1B4E040C00D3F52E /* MGSwipeButton.m */; };
+		65A4C8411B4E040C00D3F52E /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A4C83F1B4E040C00D3F52E /* MGSwipeTableCell.m */; };
 		65AD33531AC781BC00B38871 /* ImageExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65AD33521AC781BC00B38871 /* ImageExpandViewController.m */; };
+		65ED0D531B4DB95700B958C3 /* PaymentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ED0D521B4DB95700B958C3 /* PaymentTableViewController.m */; };
+		65ED0D591B4DBA9100B958C3 /* PaymentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65ED0D581B4DBA9100B958C3 /* PaymentTableCell.m */; };
 		F90659E41A679D770043AD9A /* profile_standard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F90659E31A679D770043AD9A /* profile_standard.jpg */; };
 		F90659E71A68129E0043AD9A /* GroupTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F90659E61A68129E0043AD9A /* GroupTableCell.m */; };
 		F925079F1A4C9281002927B3 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F925079E1A4C9281002927B3 /* HomeTableViewController.m */; };
@@ -106,8 +110,16 @@
 		6571BDB41AC3087E0004797E /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
 		6571BDB51AC3087E0004797E /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
 		6584726A1AB5807D00231F48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		65A4C83C1B4E040C00D3F52E /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		65A4C83D1B4E040C00D3F52E /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		65A4C83E1B4E040C00D3F52E /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		65A4C83F1B4E040C00D3F52E /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		65AD33511AC781BC00B38871 /* ImageExpandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageExpandViewController.h; sourceTree = "<group>"; };
 		65AD33521AC781BC00B38871 /* ImageExpandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageExpandViewController.m; sourceTree = "<group>"; };
+		65ED0D511B4DB95700B958C3 /* PaymentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTableViewController.h; sourceTree = "<group>"; };
+		65ED0D521B4DB95700B958C3 /* PaymentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentTableViewController.m; sourceTree = "<group>"; };
+		65ED0D571B4DBA9100B958C3 /* PaymentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTableCell.h; sourceTree = "<group>"; };
+		65ED0D581B4DBA9100B958C3 /* PaymentTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentTableCell.m; sourceTree = "<group>"; };
 		F90659E31A679D770043AD9A /* profile_standard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile_standard.jpg; sourceTree = "<group>"; };
 		F90659E51A68129E0043AD9A /* GroupTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupTableCell.h; sourceTree = "<group>"; };
 		F90659E61A68129E0043AD9A /* GroupTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTableCell.m; sourceTree = "<group>"; };
@@ -233,6 +245,17 @@
 			name = bill_view;
 			sourceTree = "<group>";
 		};
+		65A4C83B1B4E03F800D3F52E /* MGSwipeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				65A4C83C1B4E040C00D3F52E /* MGSwipeButton.h */,
+				65A4C83D1B4E040C00D3F52E /* MGSwipeButton.m */,
+				65A4C83E1B4E040C00D3F52E /* MGSwipeTableCell.h */,
+				65A4C83F1B4E040C00D3F52E /* MGSwipeTableCell.m */,
+			);
+			name = MGSwipeTableCell;
+			sourceTree = "<group>";
+		};
 		65AD33501AC7816C00B38871 /* ImageExpand_Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +263,17 @@
 				65AD33521AC781BC00B38871 /* ImageExpandViewController.m */,
 			);
 			name = ImageExpand_Views;
+			sourceTree = "<group>";
+		};
+		65ED0D501B4DB7CF00B958C3 /* Payment_Views */ = {
+			isa = PBXGroup;
+			children = (
+				65ED0D511B4DB95700B958C3 /* PaymentTableViewController.h */,
+				65ED0D521B4DB95700B958C3 /* PaymentTableViewController.m */,
+				65ED0D571B4DBA9100B958C3 /* PaymentTableCell.h */,
+				65ED0D581B4DBA9100B958C3 /* PaymentTableCell.m */,
+			);
+			name = Payment_Views;
 			sourceTree = "<group>";
 		};
 		F90659E01A6771230043AD9A /* group_view */ = {
@@ -344,6 +378,7 @@
 			children = (
 				F9CE4D121A48CE9F00D9EB50 /* Images */,
 				F9F7B22D1A6C368A00994F22 /* Class */,
+				65ED0D501B4DB7CF00B958C3 /* Payment_Views */,
 				65AD33501AC7816C00B38871 /* ImageExpand_Views */,
 				F9F7B22F1A6C371700994F22 /* TabBar_Views */,
 				F9F7B2261A6C341600994F22 /* Login_Views */,
@@ -516,6 +551,7 @@
 		F9F7B22D1A6C368A00994F22 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				65A4C83B1B4E03F800D3F52E /* MGSwipeTableCell */,
 				65110D5F1ABF57E00059C7F2 /* Pickers */,
 				F9C644F21A777883000EF59D /* FormValidation */,
 				F9F7B22C1A6C356D00994F22 /* Settings */,
@@ -678,14 +714,17 @@
 				F98E9A1C1A4A2F0600279FB0 /* User.m in Sources */,
 				65110D761ABF57E00059C7F2 /* ActionSheetLocalePicker.m in Sources */,
 				F9CE4CE81A48CCA200D9EB50 /* AppDelegate.m in Sources */,
+				65A4C8411B4E040C00D3F52E /* MGSwipeTableCell.m in Sources */,
 				F98E9A1F1A4A49B800279FB0 /* Settings.m in Sources */,
 				F930A79D1A6B7A7500EF7978 /* FBFriend.m in Sources */,
+				65ED0D591B4DBA9100B958C3 /* PaymentTableCell.m in Sources */,
 				F93E08931A4E1BC900A6F6F4 /* TabBarController.m in Sources */,
 				F9CE4CB91A48CB5C00D9EB50 /* main.m in Sources */,
 				F925079F1A4C9281002927B3 /* HomeTableViewController.m in Sources */,
 				6571BDB61AC3087E0004797E /* Currency.m in Sources */,
 				F97B63C91A593BBC00707719 /* WebService.m in Sources */,
 				F97B63C11A58E7DC00707719 /* MBProgressHUD.m in Sources */,
+				65ED0D531B4DB95700B958C3 /* PaymentTableViewController.m in Sources */,
 				F980DC861A4F57C8009C11C8 /* ConnectFailViewController.m in Sources */,
 				F96F700D1A4F70D600D800C4 /* Group.m in Sources */,
 				F930A7A21A6B9B7300EF7978 /* FBFriendTableViewController.m in Sources */,
@@ -694,6 +733,7 @@
 				F9CE4CE91A48CCA200D9EB50 /* FBLoginViewController.m in Sources */,
 				F9CE4CEA1A48CCA200D9EB50 /* PageContentViewController.m in Sources */,
 				65110D731ABF57E00059C7F2 /* ActionSheetCustomPicker.m in Sources */,
+				65A4C8401B4E040C00D3F52E /* MGSwipeButton.m in Sources */,
 				F97B63CE1A5A7A2500707719 /* ConfigurationViewController.m in Sources */,
 				F9C644F51A77788E000EF59D /* NSString+FormValidation.m in Sources */,
 				65110D751ABF57E00059C7F2 /* ActionSheetDistancePicker.m in Sources */,
@@ -755,7 +795,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -791,7 +831,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;

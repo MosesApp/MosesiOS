@@ -10,6 +10,8 @@
 
 @interface Settings : NSObject
 
+// Server data
+
 + (NSString *)getWebServiceDomain;
 
 + (NSString *)getWebServiceProtocol;
@@ -18,25 +20,52 @@
 
 + (NSString *)getWebServiceMediaPath;
 
-+ (NSString *)getWebServiceCurrencies;
-
-+ (NSString *)getWebServiceUsers;
-
-+ (NSString *)getWebServiceUser;
-
-+ (NSString *)getWebServiceGroup;
-
-+ (NSString *)getWebServiceUserGroupUser;
-
-+ (NSString *)getWebServiceUserGroupGroup;
-
-+ (NSString *)getWebServiceBill;
-
-+ (NSString *)getWebServiceBillUser;
+// User and password
 
 + (NSString *)getWebServiceAdmin;
 
 + (NSString *)getWebServicePassword;
+
+// User services
+
++ (NSString *)getWebServiceListUsers;
+
++ (NSString *)getWebServiceCreateUser;
+
++ (NSString *)getWebServiceGetUser;
+
+// Group services
+
++ (NSString *)getWebServiceCreateGroup;
+
++ (NSString *)getWebServiceListGroups;
+
+// Group User services
+
++ (NSString *)getWebServiceCreateGroupUserRelation;
+
++ (NSString *)getWebServiceGetUserGroupRelation_GroupID;
+
++ (NSString *)getWebServiceGetUserGroupRelation_UserID;
+
+// Bill
+
++ (NSString *)getWebServiceCreateBill;
+
+// Bill User
+
++ (NSString *)getWebServiceListBillUsers;
+
++ (NSString *)getWebServiceCreateBillUser;
+
++ (NSString *)getWebServiceGetBillUser;
+
+// Currency
+
++ (NSString *)getWebServiceListCurrencies;
+
++ (NSString *)getWebServiceCreateCurrency;
+
 
 @end
 

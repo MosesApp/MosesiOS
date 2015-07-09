@@ -12,6 +12,7 @@
 #import "Bill.h"
 #import "User.h"
 #import "Currency.h"
+#import "FBFriend.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -115,6 +116,9 @@
         
         // Get list of currencies
         [Currency requestCurrencies];
+        
+        // Get friends currently using Moses app
+        [FBFriend requestFBFriends];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // Reload table data
@@ -324,6 +328,12 @@
                                                      selectedScopeButtonIndex]]];
     
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"PaymentAssociate" sender:indexPath];
+    
 }
 
 

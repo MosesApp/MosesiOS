@@ -19,11 +19,11 @@
 @property (nonatomic) long long int groupId;
 @property (nonatomic, copy) NSString* receiptImageURL;
 @property (nonatomic, copy) UIImage* receiptImage;
-@property (nonatomic) long long int billAmount;
+@property (nonatomic) double billAmount;
 @property (nonatomic, copy) NSDate* date;
 @property (nonatomic, copy) NSString* relation;
 @property (nonatomic, copy) NSString* status;
-@property (nonatomic) long long int amount;
+@property (nonatomic) double amount;
 
 - (id)initWithdbId:(long long int)dbId
             billId:(long long int)billId
@@ -31,11 +31,11 @@
    billDescription:(NSString*)billDescription
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
-        billAmount:(long long int)billAmount
+        billAmount:(double)billAmount
               date:(NSDate*)date
           relation:(NSString*)relation
             status:(NSString*)status
-            amount:(long long int)amount;
+            amount:(double)amount;
 
 + (NSArray*)sharedBills;
 
@@ -53,7 +53,9 @@
 
 + (NSDictionary*)getFinancialSituation;
 
-+ (float)getBalanceForGroupId:(long long int)groupId;
++ (double)getBalanceForGroupId:(long long int)groupId;
+
++ (NSArray*)getBillsForGroupId:(long long int)groupId;
 
 - (NSString *)description;
 

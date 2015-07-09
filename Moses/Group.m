@@ -26,7 +26,7 @@ static NSMutableArray *sharedUserGroups = nil;
     if (self) {
         self.dbId = dbId;
         self.creatorId = creatorId;
-        self.name = name;
+        self.name = [NSString stringWithCString:[name cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
         self.imageURL = imageURL;
         if([WebService validateUrl:self.imageURL]){
             self.image = [WebService getImage: self.imageURL];
@@ -51,7 +51,7 @@ static NSMutableArray *sharedUserGroups = nil;
     
     sharedUserGroups = [[NSMutableArray alloc] init];
     
-    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceUserGroupUser]];
+    NSDictionary *groupJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceGetUserGroupRelation_UserID]];
     
     for (NSDictionary *serviceKey in groupJSON) {
         if([serviceKey isEqual:@"results"]){
@@ -72,7 +72,7 @@ static NSMutableArray *sharedUserGroups = nil;
 {
     NSMutableArray *members = [[NSMutableArray alloc] init];
     
-    NSDictionary *memberJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", groupId] serviceURL:[Settings getWebServiceUserGroupGroup]];
+    NSDictionary *memberJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", groupId] serviceURL:[Settings getWebServiceGetUserGroupRelation_GroupID]];
     
     
     for (NSDictionary *serviceKey in memberJSON) {
@@ -106,7 +106,7 @@ static NSMutableArray *sharedUserGroups = nil;
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
-    NSDictionary *groupJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceGroup]];
+    NSDictionary *groupJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceCreateGroup]];
     
     NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
     
@@ -118,7 +118,7 @@ static NSMutableArray *sharedUserGroups = nil;
         // Get user related bills
         [Bill requestUserBills:dbId];
         
-        [retMessage setValue:@"Group created successfully" forKey:@"message"];
+        [retMessage setValue:@"Group created successfully!" forKey:@"message"];
         [retMessage setValue:[NSNumber numberWithBool:true] forKey:@"success"];
         
         return retMessage;

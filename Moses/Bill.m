@@ -22,18 +22,18 @@ static NSMutableArray *sharedBills = nil;
    billDescription:(NSString*)billDescription
            groupId:(long long int)groupId
    receiptImageURL:(NSString*)receiptImageURL
-        billAmount:(long long int)billAmount
+        billAmount:(double)billAmount
               date:(NSDate*)date
           relation:(NSString*)relation
             status:(NSString*)status
-            amount:(long long int)amount{
+            amount:(double)amount{
     
     self = [super init];
     if (self) {
         self.dbId = dbId;
         self.billId = billId;
-        self.name = name;
-        self.billDescription = billDescription;
+        self.name = [NSString stringWithCString:[name cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
+        self.billDescription = [NSString stringWithCString:[billDescription cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
         self.groupId = groupId;
         self.receiptImageURL = receiptImageURL;
         if([WebService validateUrl:self.receiptImageURL]){
@@ -42,7 +42,7 @@ static NSMutableArray *sharedBills = nil;
         self.billAmount = billAmount;
         self.date = date;
         self.relation = relation;
-        self.status = status;
+        self.status = [NSString stringWithCString:[status cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
         self.amount = amount;
     }
     return self;
@@ -98,13 +98,13 @@ static NSMutableArray *sharedBills = nil;
 
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
-    NSDictionary *billJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceBill]];
+    NSDictionary *billJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceCreateBill]];
     
     NSMutableDictionary *retMessage = [[NSMutableDictionary alloc]initWithCapacity:2];
     
     if([billJSON objectForKey:@"id"] != nil){
         
-        [retMessage setValue:@"Bill created successfully" forKey:@"message"];
+        [retMessage setValue:@"Bill created successfully!" forKey:@"message"];
         [retMessage setValue:[NSNumber numberWithBool:true] forKey:@"success"];
         
         return retMessage;
@@ -119,7 +119,7 @@ static NSMutableArray *sharedBills = nil;
     
     sharedBills = [[NSMutableArray alloc] init];
     
-    NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceBill]];
+    NSDictionary *billJSON = [WebService getDataWithParam:[NSString stringWithFormat:@"%lld", userId] serviceURL:[Settings getWebServiceGetBillUser]];
     
     for (NSDictionary *serviceKey in billJSON) {
         if([serviceKey isEqual:@"results"]){
@@ -128,9 +128,8 @@ static NSMutableArray *sharedBills = nil;
                 NSDictionary* billDetail = billDict[@"bill"];
                 // Format date string
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
-                [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+                [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSSZ"];
                 NSDate *date = [df dateFromString: billDetail[@"date"]];
-                
                 
                 Bill *bill = [[Bill alloc] initWithdbId:[billDict[@"id"] intValue]
                                                  billId:[billDetail[@"id"] intValue]
@@ -138,11 +137,11 @@ static NSMutableArray *sharedBills = nil;
                                         billDescription:billDetail[@"description"]
                                                 groupId:[billDetail[@"group"] intValue]
                                         receiptImageURL:billDetail[@"receipt_image"]
-                                             billAmount:[billDetail[@"amount"] intValue]
+                                             billAmount:[billDetail[@"amount"] doubleValue]
                                                    date:date
                                                relation:billDict[@"relation"]
                                                  status:billDict[@"status"]
-                                                 amount:[billDict[@"amount"] intValue]];
+                                                 amount:[billDict[@"amount"] doubleValue]];
 
                 [sharedBills addObject:bill];
             
@@ -154,9 +153,9 @@ static NSMutableArray *sharedBills = nil;
 + (NSDictionary*)getFinancialSituation
 {
     NSMutableDictionary* financialSituation = [[NSMutableDictionary alloc] init];
-    float owe = 0.0;
-    float owed = 0.0;
-    float balance = 0.0;
+    double owe = 0.0;
+    double owed = 0.0;
+    double balance = 0.0;
     
     for (Bill* bill in sharedBills) {
         if(![bill.status isEqual: @"paid"]){
@@ -169,17 +168,17 @@ static NSMutableArray *sharedBills = nil;
     }
     balance = owed - owe;
     
-    financialSituation[@"owe"] = [NSNumber numberWithInt:owe];
-    financialSituation[@"owed"] = [NSNumber numberWithInt:owed];
-    financialSituation[@"balance"] = [NSNumber numberWithInt:balance];
+    financialSituation[@"owe"] = [NSNumber numberWithDouble:owe];
+    financialSituation[@"owed"] = [NSNumber numberWithDouble:owed];
+    financialSituation[@"balance"] = [NSNumber numberWithDouble:balance];
     
     return financialSituation;
     
 }
 
-+ (float)getBalanceForGroupId:(long long int)groupId
++ (double)getBalanceForGroupId:(long long int)groupId
 {
-    float balance = 0.0;
+    double balance = 0.0;
     for (Bill* bill in sharedBills) {
         if(bill.groupId == groupId){
             if(![bill.status isEqual: @"paid"]){
@@ -195,9 +194,22 @@ static NSMutableArray *sharedBills = nil;
     return balance;
 }
 
++ (NSArray*)getBillsForGroupId:(long long int)groupId
+{
+    NSMutableArray* groupBills = [[NSMutableArray alloc] init];
+
+    for (Bill* bill in sharedBills) {
+        if(bill.groupId == groupId){
+            [groupBills addObject:bill];
+        }
+    }
+    
+    return groupBills;
+}
+
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%lld\n%lld\n%@\n%@\n%lld\n%@\n%lld\n%@\n%@\n%@",
+    return [NSString stringWithFormat:@"%lld\n%lld\n%@\n%@\n%lld\n%@\n%f\n%@\n%@\n%@",
             self.dbId,
             self.billId,
             self.name,

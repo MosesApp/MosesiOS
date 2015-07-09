@@ -265,10 +265,10 @@
     // Group picker
     if(textField.tag == 200){
         NSArray *groups = [Group sharedUserGroups];
-        NSMutableArray *groupsNames = [[NSMutableArray alloc] init];
+        NSMutableArray *groupNames = [[NSMutableArray alloc] init];
         
         for (Group *group in groups) {
-            [groupsNames addObject:group.name];
+            [groupNames addObject: group.name];
         }
         
         // Check if user is enrolled in a group
@@ -281,7 +281,7 @@
         
         [ActionSheetStringPicker
          showPickerWithTitle:@"Select a Group"
-         rows:groupsNames
+         rows:groupNames
          initialSelection:0
          doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
              textField.text = selectedValue;
@@ -346,7 +346,9 @@
         NSMutableArray *currencies = [[NSMutableArray alloc] init];
         
         for (Currency *currency in [Currency sharedCurrencies]) {
+            
             [currencies addObject:currency.prefix];
+            
         }
         
         // Check if server returns a list of currencies
@@ -389,6 +391,30 @@
         }
         [self.tableViewMembers reloadData];
     }
+    
+    // Go back to Home menu option
+    if([[retMessage objectForKey:@"success"] boolValue] == YES){
+        
+        retMessage = nil;
+        self.nameField.text = nil;
+        self.descriptionField.text = nil;
+        self.groupField.text = nil;
+        self.thumbnailImageView.image = [UIImage imageNamed:@"bill_standard.jpg"];
+        self.currencyField.text = nil;
+        self.amountField.text = nil;
+        
+        // Clear table view
+        members = nil;
+        [self.tableViewMembers reloadData];
+        self.tableViewMembers.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        imageUploaded = FALSE;
+        
+        // Goes back to Home View
+        [self.tabBarController setSelectedIndex:0];
+    }
+    retMessage = nil;
+    
 }
 
 -(void)registerBill
@@ -398,7 +424,6 @@
         [[[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok", nil] show];
         return;
     }
-    
     
     /* Create members JSON for the Bill*/
     NSMutableArray *billMembers = [[NSMutableArray alloc] init];
@@ -501,11 +526,11 @@
             indexPath = [NSIndexPath indexPathForRow:row inSection:section];
             cell = (BillTableCell *) [self.tableViewMembers cellForRowAtIndexPath:indexPath];
             cell.amountField.layer.borderColor = [[UIColor clearColor]CGColor];
-            total += [cell.amountField.text integerValue];
+            total += [cell.amountField.text doubleValue];
         }
     }
     
-    if (total != [self.amountField.text integerValue]) {
+    if (total != [self.amountField.text doubleValue]) {
         NSInteger sectionCount = [self.tableViewMembers numberOfSections];
         for (NSInteger section = 0; section < sectionCount; section++) {
             NSInteger rowCount = [self.tableViewMembers numberOfRowsInSection:section];

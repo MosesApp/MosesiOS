@@ -24,8 +24,8 @@ static User *sharedUser = nil;
     @synchronized(self) {
         if (sharedUser == nil)
             sharedUser = [[self alloc] setUserWithFacebookId:facebookId
-                                                   firstName:firstName
-                                                    fullName:fullName
+                                                   firstName:[NSString stringWithCString:[firstName cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding]
+                                                    fullName:[NSString stringWithCString:[fullName cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding]
                                                        email:email
                                                       locale:locale
                                                     timezone:timezone];
@@ -62,7 +62,7 @@ static User *sharedUser = nil;
         NSArray *keys = [NSArray arrayWithObjects:@"facebook_id", @"first_name", @"full_name", @"email", @"locale", @"timezone", nil];
         NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
         
-        userJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceUsers]];
+        userJSON = [WebService setDataWithJSONDict:dict serviceURL:[Settings getWebServiceCreateUser]];
         
         return [self castJSONToTypeWith:userJSON];
     }
@@ -87,7 +87,7 @@ static User *sharedUser = nil;
 + (NSDictionary*)getUserWithFacebookId:(NSString *)facebookId
 {
     return [WebService getDataWithParam:facebookId
-                             serviceURL:[Settings getWebServiceUser]];
+                             serviceURL:[Settings getWebServiceGetUser]];
 }
 
 - (id)copyWithZone:(NSZone *)zone {

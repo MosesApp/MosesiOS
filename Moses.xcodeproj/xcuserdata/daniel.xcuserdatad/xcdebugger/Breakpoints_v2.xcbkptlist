@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Moses/BillViewController.m"
-            timestampString = "457227905.581167"
+            timestampString = "457249937.39239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "416"
-            endingLineNumber = "416"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "-registerBill"
             landmarkType = "5">
          </BreakpointContent>

@@ -26,8 +26,8 @@ static NSMutableArray *sharedFBFriends = nil;
     if (self) {
         self.dbId = dbId;
         self.facebookId = facebookId;
-        self.firstName = firstName;
-        self.fullName = fullName;
+        self.firstName = [NSString stringWithCString:[firstName cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
+        self.fullName = [NSString stringWithCString:[fullName cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding];
         self.email = email;
         self.locale = locale;
         self.timezone = timezone;
@@ -51,9 +51,8 @@ static NSMutableArray *sharedFBFriends = nil;
 
 + (void)requestFBFriends
 {
-    if(sharedFBFriends == nil){
-        sharedFBFriends = [[NSMutableArray alloc] init];
-    }
+    
+    sharedFBFriends = [[NSMutableArray alloc] init];
     
     [FBRequestConnection startForMyFriendsWithCompletionHandler:
      ^(FBRequestConnection *connection, id<FBGraphUser> friends, NSError *error)

@@ -10,6 +10,8 @@
 
 @implementation Settings
 
+// Server data
+
 + (NSString *)getWebServiceDomain
 {
     return @"186.206.198.117:8000";
@@ -30,45 +32,7 @@
     return @"media";
 }
 
-+ (NSString *)getWebServiceCurrencies
-{
-    return @"currencies";
-}
-
-+ (NSString *)getWebServiceUsers
-{
-    return @"users";
-}
-
-+ (NSString *)getWebServiceUser
-{
-    return @"user";
-}
-
-+ (NSString *)getWebServiceGroup
-{
-    return @"group";
-}
-
-+ (NSString *)getWebServiceUserGroupUser
-{
-    return @"group_user_user";
-}
-
-+ (NSString *)getWebServiceUserGroupGroup
-{
-    return @"group_user_group";
-}
-
-+ (NSString *)getWebServiceBillUser
-{
-    return @"bill_user";
-}
-
-+ (NSString *)getWebServiceBill
-{
-    return @"bill";
-}
+// User and password
 
 + (NSString *)getWebServiceAdmin
 {
@@ -78,6 +42,88 @@
 + (NSString *)getWebServicePassword
 {
     return @"Moses765";
+}
+
+// User services
+
++ (NSString *)getWebServiceListUsers
+{
+    return @"listUsers";
+}
+
++ (NSString *)getWebServiceCreateUser
+{
+    return @"createUser";
+}
+
++ (NSString *)getWebServiceGetUser
+{
+    return @"getUser";
+}
+
+// Group services
+
++ (NSString *)getWebServiceCreateGroup
+{
+    return @"createGroup";
+}
+
++ (NSString *)getWebServiceListGroups
+{
+    return @"listGroups";
+}
+
+// Group User services
+
++ (NSString *)getWebServiceCreateGroupUserRelation
+{
+    return @"createGroupUserRelation";
+}
+
++ (NSString *)getWebServiceGetUserGroupRelation_GroupID
+{
+    return @"getUserGroupRelationGroupId";
+}
+
++ (NSString *)getWebServiceGetUserGroupRelation_UserID
+{
+    return @"getUserGroupRelationUserId";
+}
+
+// Bill
+
++ (NSString *)getWebServiceCreateBill
+{
+    return @"createBill";
+}
+
+// Bill User
+
++ (NSString *)getWebServiceListBillUsers
+{
+    return @"listBillUsers";
+}
+
++ (NSString *)getWebServiceCreateBillUser
+{
+    return @"createBillUser";
+}
+
++ (NSString *)getWebServiceGetBillUser
+{
+    return @"getBillUser";
+}
+
+// Currency
+
++ (NSString *)getWebServiceListCurrencies
+{
+    return @"listCurrencies";
+}
+
++ (NSString *)getWebServiceCreateCurrency
+{
+    return @"createCurrency";
 }
 
 - (void)dealloc {
